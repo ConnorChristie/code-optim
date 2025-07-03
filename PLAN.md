@@ -92,7 +92,6 @@ graph TB
         end
 
         subgraph "Shared Resources"
-            DO["Durable Objects"]
             VDB["Vectorize DB"]
             WS["WebSocket Hub"]
         end
@@ -106,34 +105,44 @@ graph TB
     GitHub <--> GH
     Client <--> WS
 
-    %% Agent Interactions
-    GH --> DO
-    RC --> DO
-    VCS --> DO
+    %% Agent Interactions with Shared Resources
+    GH --> VDB
+    RC --> VDB
+    VCS --> VDB
+    SA --> VDB
+    DA --> VDB
+    MC --> VDB
+    TG --> VDB
+    TS --> VDB
+    TC --> VDB
+    LLM --> VDB
+    RE --> VDB
+    CT --> VDB
+    BC --> VDB
+    RM --> VDB
+    PM --> VDB
+    RD --> VDB
+    PR --> VDB
+    VZ --> VDB
 
-    SA --> DO
-    DA --> DO
-    MC --> DO
-
-    TG --> DO
-    TS --> DO
-    TC --> DO
-
-    LLM --> DO
-    RE --> DO
-    CT --> DO
-
-    BC --> DO
-    RM --> DO
-    PM --> DO
-
-    RD --> DO
-    PR --> DO
-    VZ --> DO
-
-    %% Shared Resource Access
-    DO <--> VDB
-    DO <--> WS
+    GH --> WS
+    RC --> WS
+    VCS --> WS
+    SA --> WS
+    DA --> WS
+    MC --> WS
+    TG --> WS
+    TS --> WS
+    TC --> WS
+    LLM --> WS
+    RE --> WS
+    CT --> WS
+    BC --> WS
+    RM --> WS
+    PM --> WS
+    RD --> WS
+    PR --> WS
+    VZ --> WS
 ```
 
 ### Optimization Process Flow
