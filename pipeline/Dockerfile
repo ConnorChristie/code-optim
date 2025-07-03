@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies using pnpm
-RUN npm install -g pnpm && \
+RUN npm install -g pnpm ts-node && \
     pnpm install
 
 # Build TypeScript code
@@ -24,4 +24,4 @@ RUN pnpm run build
 ENV CODEX_RUST=1
 
 # Start workers
-CMD ["node", "dist/start-workers.js"]
+CMD ["ts-node", "src/index.ts"]

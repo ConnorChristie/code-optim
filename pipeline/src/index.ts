@@ -10,8 +10,8 @@ async function main() {
 
   try {
     const flow = await queueManager.startOptimizationPipeline(
-      'https://github.com/example/repo',
-      'main'
+      'https://github.com/taskforcesh/bullmq',
+      'master'
     )
 
     console.log('Started optimization pipeline:', flow.job.id)
@@ -30,4 +30,4 @@ async function main() {
   }
 }
 
-main() 
+main()

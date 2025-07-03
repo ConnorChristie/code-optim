@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   redis:
     image: redis:7-alpine
@@ -24,6 +22,7 @@ services:
       - CODEX_RUST=1
     volumes:
       - workspace-data:/workspace
+      - ./pipeline/src:/app/src:delegated
     depends_on:
       redis:
         condition: service_healthy
