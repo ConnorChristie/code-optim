@@ -15,3 +15,7 @@ Make sure to also configure the port and username/password if applicable as envi
 Do not include code comments.
 Do not document the output code.
 Do not add inline comments.
+
+## Next JS App
+When referencing relative or project files, use `@/` instead of `../` or other relative directory modifiers.
+
