@@ -1,27 +1,33 @@
-import { Job, Worker, QueueScheduler } from 'bullmq'
+import { Worker, Job, Queue } from 'bullmq'
 import { QUEUE_CONFIG } from '../config/queue.config'
 
 export abstract class BaseProcessor {
   protected worker: Worker
-  protected scheduler: QueueScheduler
+  protected queue: Queue
 
   constructor(queueName: string) {
+    this.queue = new Queue(queueName, {
+      connection: QUEUE_CONFIG.connection
+    })
+
     this.worker = new Worker(
       queueName,
       this.process.bind(this),
       {
-        ...QUEUE_CONFIG,
+        connection: QUEUE_CONFIG.connection,
         concurrency: 5,
         removeOnComplete: {
-          count: 1000
+          count: 1000,
+          age: 24 * 3600
         },
         removeOnFail: {
-          count: 5000
-        }
+          count: 5000,
+          age: 24 * 3600 * 7
+        },
+        lockDuration: 30000,
+        maxStalledCount: 10
       }
     )
-
-    this.scheduler = new QueueScheduler(queueName, QUEUE_CONFIG)
 
     this.setupListeners()
   }
@@ -42,10 +48,14 @@ export abstract class BaseProcessor {
     this.worker.on('error', (error) => {
       console.error(`Worker error: ${error}`)
     })
+
+    this.worker.on('stalled', (jobId) => {
+      console.warn(`Job ${jobId} has stalled`)
+    })
   }
 
   async close(): Promise<void> {
     await this.worker.close()
-    await this.scheduler.close()
+    await this.queue.close()
   }
 } 

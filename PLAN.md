@@ -54,95 +54,79 @@ This document outlines the plan for building an autonomous AI agent that analyze
 
 ```mermaid
 graph TB
-    subgraph "Cloudflare Edge Network"
-        subgraph "Repository Agent"
-            GH["GitHub App"]
-            RC["Repository Cloner"]
-            VCS["Version Control"]
-        end
-
-        subgraph "Analysis Agent"
-            SA["Static Analysis"]
-            DA["Dynamic Analysis"]
-            MC["Metrics Collector"]
-        end
-
-        subgraph "Test Agent"
-            TG["Test Generator"]
-            TS["Test Runner"]
-            TC["Test Coverage"]
-        end
-
-        subgraph "Optimization Agent"
-            LLM["Workers AI/OpenAI"]
-            RE["Rules Engine"]
-            CT["Code Transformer"]
-        end
-
-        subgraph "Benchmark Agent"
-            BC["Benchmark Runner"]
-            RM["Resource Monitor"]
-            PM["Performance Metrics"]
-        end
-
-        subgraph "Reporting Agent"
-            RD["Results Dashboard"]
-            PR["PR Generator"]
-            VZ["Visualizations"]
-        end
-
-        subgraph "Shared Resources"
-            VDB["Vectorize DB"]
-            WS["WebSocket Hub"]
-        end
+    subgraph "Repository Integration Layer"
+        GH["GitHub App"]
+        RC["Repository Cloner"]
+        VCS["Version Control System"]
     end
 
-    %% External Systems
-    GitHub["GitHub"]
-    Client["Web Client"]
+    subgraph "Analysis Engine"
+        SA["Static Analysis"]
+        DA["Dynamic Analysis"]
+        CD["Codex CLI"]
+        MC["Metrics Collector"]
+    end
+
+    subgraph "Test Generation System"
+        TG["Test Generator"]
+        TS["Test Scaffolding"]
+        LT["Load Testing"]
+        TC["Test Coverage"]
+    end
+
+    subgraph "Optimization Engine"
+        LLM["LLM Optimizer"]
+        RE["Rules Engine"]
+        CT["Code Transformer"]
+        SV["Safety Validator"]
+    end
+
+    subgraph "Benchmarking System"
+        BC["Benchmark Comparator"]
+        RM["Resource Monitor"]
+        RT["Regression Testing"]
+        PM["Performance Metrics"]
+    end
+
+    subgraph "Reporting System"
+        RD["Results Dashboard"]
+        PR["PR Generator"]
+        VZ["Visualizations"]
+        HT["History Tracker"]
+    end
 
     %% Data Flow
-    GitHub <--> GH
-    Client <--> WS
+    GH --> RC
+    RC --> VCS
+    VCS --> SA
+    VCS --> DA
+    VCS --> CD
 
-    %% Agent Interactions with Shared Resources
-    GH --> VDB
-    RC --> VDB
-    VCS --> VDB
-    SA --> VDB
-    DA --> VDB
-    MC --> VDB
-    TG --> VDB
-    TS --> VDB
-    TC --> VDB
-    LLM --> VDB
-    RE --> VDB
-    CT --> VDB
-    BC --> VDB
-    RM --> VDB
-    PM --> VDB
-    RD --> VDB
-    PR --> VDB
-    VZ --> VDB
+    SA --> MC
+    DA --> MC
+    CD --> MC
 
-    GH --> WS
-    RC --> WS
-    VCS --> WS
-    SA --> WS
-    DA --> WS
-    MC --> WS
-    TG --> WS
-    TS --> WS
-    TC --> WS
-    LLM --> WS
-    RE --> WS
-    CT --> WS
-    BC --> WS
-    RM --> WS
-    PM --> WS
-    RD --> WS
-    PR --> WS
-    VZ --> WS
+    MC --> TG
+    TG --> TS
+    TS --> LT
+    LT --> TC
+
+    MC --> LLM
+    LLM --> RE
+    RE --> CT
+    CT --> SV
+
+    TC --> BC
+    SV --> BC
+    BC --> RM
+    RM --> RT
+    RT --> PM
+
+    PM --> RD
+    RD --> PR
+    RD --> VZ
+    VZ --> HT
+    PR --> GH
 ```
 
 ### Optimization Process Flow

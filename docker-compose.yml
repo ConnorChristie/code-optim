@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  pipeline-workers:
+    build: pipeline
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - WORKSPACE_DIR=/workspace
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - CODEX_RUST=1
+    volumes:
+      - workspace-data:/workspace
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  redis-data:
+    driver: local
+  workspace-data:
+    driver: local
