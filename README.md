@@ -44,3 +44,35 @@ AutoPerfAI supercharges your codebase performance using AI-driven optimization. 
 3. **Optimization Generation:** LLM generates optimized code proposals.
 4. **Benchmark Validation:** Automated benchmarks validate performance improvements.
 5. **PR Generation:** Validated optimizations submitted as pull requests to the repository.
+
+```mermaid
+flowchart LR
+    subgraph GitHub["GitHub Repository"]
+        A["Code Push"] --> B["Webhook Trigger"]
+    end
+    
+    subgraph Analysis["Analysis Phase"]
+        C["Static Analysis"] 
+        D["Dynamic Profiling"]
+    end
+    
+    subgraph Optimization["Optimization Phase"]
+        E["LLM Engine"]
+        F["Code Generation"]
+    end
+    
+    subgraph Validation["Validation Phase"]
+        G["Benchmark Tests"]
+        H["Performance Validation"]
+    end
+    
+    B --> C
+    B --> D
+    C --> E
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H -->|"If Improved"| I["Create Pull Request"]
+    I --> GitHub
+```
