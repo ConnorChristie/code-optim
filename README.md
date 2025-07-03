@@ -12,6 +12,8 @@ AutoPerfAI supercharges your codebase performance using AI-driven optimization. 
 
 * **Zero-Effort Optimization:** Fix performance issues automatically during development. No more performance debt or slow code in production. Your users get the fastest possible experience without manual optimization work.
 
+* **Research-Driven Innovation:** Continuously integrate cutting-edge optimization techniques from academic research and industry breakthroughs. Stay ahead with the latest advances in compiler design, parallel processing, and algorithmic improvements.
+
 * **Compound Benefits:** Every optimization multiplies across your entire user base. Small improvements create massive impact at scale - when thousands of users interact with your system, milliseconds become hours of saved time.
 
 ## Features
@@ -22,6 +24,8 @@ AutoPerfAI supercharges your codebase performance using AI-driven optimization. 
 * **Seamless Integration:** Documents changes with benchmarks and detailed implementation specs.
 * **Multi-Language Engine:** Optimizes Python, JavaScript, Java, C++, and TypeScript codebases.
 * **Self-Hosted Security:** Deploy within your infrastructure, maintain full control.
+* **Evolving AI Capabilities:** Leverages latest LLM advancements for increasingly sophisticated optimizations. As models improve year over year, optimization capabilities automatically expand.
+* **Cross-Module Optimization:** Takes advantage of expanded LLM context windows to identify and implement optimizations that span multiple files and components.
 
 ## Technical Architecture
 
@@ -29,7 +33,7 @@ AutoPerfAI supercharges your codebase performance using AI-driven optimization. 
 
 * **GitHub Integration:** Built with Probot for event-driven GitHub interactions (e.g., push events, PR creation).
 * **Code Analysis Engine:** Uses static analyzers (AST parsers) and dynamic profilers (e.g., cProfile, Linux perf, JMH) to detect performance issues.
-* **LLM Engine:** Leveraging OpenAI's GPT models through LangChain for autonomous code optimization recommendations.
+* **LLM Engine:** Leveraging OpenAI's GPT models through LangChain for autonomous code optimization recommendations. Designed to seamlessly integrate new model versions as they're released, unlocking increasingly sophisticated optimization patterns and larger-scope refactoring capabilities.
 * **Task Queue & Orchestration:** Redis-based Celery workers running in Docker containers for scalable processing.
 * **Benchmarking Service:** Lightweight scripts to benchmark original and optimized code.
 
@@ -40,33 +44,3 @@ AutoPerfAI supercharges your codebase performance using AI-driven optimization. 
 3. **Optimization Generation:** LLM generates optimized code proposals.
 4. **Benchmark Validation:** Automated benchmarks validate performance improvements.
 5. **PR Generation:** Validated optimizations submitted as pull requests to the repository.
-
-## Getting Started
-
-### Requirements
-
-* Docker & Docker Compose
-* GitHub Account with repository access
-* OpenAI API key
-
-### Setup Instructions
-
-1. **Clone the repository:**
-
-```bash
-git clone https://github.com/yourusername/autoperfai.git
-```
-
-2. **Configuration:**
-
-* Set your GitHub credentials and OpenAI API key in the `.env` file.
-
-3. **Run AutoPerfAI:**
-
-```bash
-docker-compose up --build
-```
-
-4. **GitHub Integration:**
-
-* Install your GitHub App to desired repositories.
