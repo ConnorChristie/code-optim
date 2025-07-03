@@ -3,6 +3,10 @@ description:
 globs: 
 alwaysApply: true
 ---
+## Dependency Documentation
+You have access to DeepWiki which provides documentation for various open source projects.
+Retrieve the documentation for a project or dependency via this tool.
+
 ## Code Structure
 When referencing a dependent service via a domain name, configure the domain as an environment variable.
 Make sure to also configure the port and username/password if applicable as environment variables.

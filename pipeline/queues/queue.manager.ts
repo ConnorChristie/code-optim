@@ -8,8 +8,7 @@ export class QueueManager {
   constructor() {
     this.queues = new Map()
     this.flowProducer = new FlowProducer(QUEUE_CONFIG)
-    
-    // Initialize queues
+
     Object.values(QUEUES).forEach(queueName => {
       this.queues.set(queueName, new Queue(queueName, QUEUE_CONFIG))
     })
@@ -72,7 +71,8 @@ export class QueueManager {
     if (!queue) {
       throw new Error(`Queue ${queueName} not found`)
     }
-    return await queue.getJob(jobId)
+    const job = await queue.getJob(jobId)
+    return job || null
   }
 
   async close(): Promise<void> {
