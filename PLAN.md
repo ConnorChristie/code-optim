@@ -54,79 +54,86 @@ This document outlines the plan for building an autonomous AI agent that analyze
 
 ```mermaid
 graph TB
-    subgraph "Repository Integration Layer"
-        GH["GitHub App"]
-        RC["Repository Cloner"]
-        VCS["Version Control System"]
+    subgraph "Cloudflare Edge Network"
+        subgraph "Repository Agent"
+            GH["GitHub App"]
+            RC["Repository Cloner"]
+            VCS["Version Control"]
+        end
+
+        subgraph "Analysis Agent"
+            SA["Static Analysis"]
+            DA["Dynamic Analysis"]
+            MC["Metrics Collector"]
+        end
+
+        subgraph "Test Agent"
+            TG["Test Generator"]
+            TS["Test Runner"]
+            TC["Test Coverage"]
+        end
+
+        subgraph "Optimization Agent"
+            LLM["Workers AI/OpenAI"]
+            RE["Rules Engine"]
+            CT["Code Transformer"]
+        end
+
+        subgraph "Benchmark Agent"
+            BC["Benchmark Runner"]
+            RM["Resource Monitor"]
+            PM["Performance Metrics"]
+        end
+
+        subgraph "Reporting Agent"
+            RD["Results Dashboard"]
+            PR["PR Generator"]
+            VZ["Visualizations"]
+        end
+
+        subgraph "Shared Resources"
+            DO["Durable Objects"]
+            VDB["Vectorize DB"]
+            WS["WebSocket Hub"]
+        end
     end
 
-    subgraph "Analysis Engine"
-        SA["Static Analysis"]
-        DA["Dynamic Analysis"]
-        CD["Codex CLI"]
-        MC["Metrics Collector"]
-    end
-
-    subgraph "Test Generation System"
-        TG["Test Generator"]
-        TS["Test Scaffolding"]
-        LT["Load Testing"]
-        TC["Test Coverage"]
-    end
-
-    subgraph "Optimization Engine"
-        LLM["LLM Optimizer"]
-        RE["Rules Engine"]
-        CT["Code Transformer"]
-        SV["Safety Validator"]
-    end
-
-    subgraph "Benchmarking System"
-        BC["Benchmark Comparator"]
-        RM["Resource Monitor"]
-        RT["Regression Testing"]
-        PM["Performance Metrics"]
-    end
-
-    subgraph "Reporting System"
-        RD["Results Dashboard"]
-        PR["PR Generator"]
-        VZ["Visualizations"]
-        HT["History Tracker"]
-    end
+    %% External Systems
+    GitHub["GitHub"]
+    Client["Web Client"]
 
     %% Data Flow
-    GH --> RC
-    RC --> VCS
-    VCS --> SA
-    VCS --> DA
-    VCS --> CD
+    GitHub <--> GH
+    Client <--> WS
 
-    SA --> MC
-    DA --> MC
-    CD --> MC
+    %% Agent Interactions
+    GH --> DO
+    RC --> DO
+    VCS --> DO
 
-    MC --> TG
-    TG --> TS
-    TS --> LT
-    LT --> TC
+    SA --> DO
+    DA --> DO
+    MC --> DO
 
-    MC --> LLM
-    LLM --> RE
-    RE --> CT
-    CT --> SV
+    TG --> DO
+    TS --> DO
+    TC --> DO
 
-    TC --> BC
-    SV --> BC
-    BC --> RM
-    RM --> RT
-    RT --> PM
+    LLM --> DO
+    RE --> DO
+    CT --> DO
 
-    PM --> RD
-    RD --> PR
-    RD --> VZ
-    VZ --> HT
-    PR --> GH
+    BC --> DO
+    RM --> DO
+    PM --> DO
+
+    RD --> DO
+    PR --> DO
+    VZ --> DO
+
+    %% Shared Resource Access
+    DO <--> VDB
+    DO <--> WS
 ```
 
 ### Optimization Process Flow
@@ -134,75 +141,60 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant GH as GitHub
-    participant AI as AI Agent
-    participant AN as Analysis
-    participant TG as Test Gen
-    participant OP as Optimizer
-    participant BM as Benchmark
-    participant RP as Reporter
+    participant RA as Repository Agent
+    participant AA as Analysis Agent
+    participant TA as Test Agent
+    participant OA as Optimization Agent
+    participant BA as Benchmark Agent
+    participant RPA as Report Agent
+    participant WS as WebSocket Client
 
-    GH->>AI: Repository Connected
-    activate AI
-    AI->>AN: Start Analysis
-    activate AN
-    AN-->>AI: Code Analysis Results
-    deactivate AN
+    GH->>RA: Repository Connected
+    activate RA
+    RA->>WS: Start Progress Updates
     
-    AI->>TG: Generate Tests
-    activate TG
-    TG-->>AI: Performance Tests
-    deactivate TG
+    RA->>AA: Start Analysis
+    activate AA
+    AA-->>WS: Analysis Progress
+    AA-->>RA: Code Analysis Results
+    deactivate AA
     
-    AI->>BM: Run Initial Benchmark
-    activate BM
-    BM-->>AI: Baseline Metrics
-    deactivate BM
+    RA->>TA: Generate Tests
+    activate TA
+    TA-->>WS: Test Progress
+    TA-->>RA: Performance Tests
+    deactivate TA
     
-    AI->>OP: Optimize Code
-    activate OP
-    OP-->>AI: Optimized Version
-    deactivate OP
+    RA->>BA: Run Initial Benchmark
+    activate BA
+    BA-->>WS: Benchmark Progress
+    BA-->>RA: Baseline Metrics
+    deactivate BA
     
-    AI->>BM: Run Comparison Benchmark
-    activate BM
-    BM-->>AI: Performance Delta
-    deactivate BM
+    RA->>OA: Optimize Code
+    activate OA
+    OA-->>WS: Optimization Progress
+    OA-->>RA: Optimized Version
+    deactivate OA
     
-    AI->>RP: Generate Report
-    activate RP
-    RP->>GH: Create Pull Request
-    deactivate RP
+    RA->>BA: Run Comparison
+    activate BA
+    BA-->>WS: Benchmark Progress
+    BA-->>RA: Performance Delta
+    deactivate BA
     
-    GH-->>AI: PR Status
-    deactivate AI
+    RA->>RPA: Generate Report
+    activate RPA
+    RPA-->>WS: Report Progress
+    RPA->>GH: Create Pull Request
+    deactivate RPA
+    
+    GH-->>RA: PR Status
+    RA-->>WS: Complete
+    deactivate RA
 ```
 
 ## Management Interface
-
-### GitHub Action Integration
-- Simple workflow file configuration:
-  ```yaml
-  name: Code Optimization
-  on:
-    workflow_dispatch:  # Manual trigger
-    schedule:          # Scheduled runs
-      - cron: '0 0 * * 0'  # Weekly
-    
-  env:
-    MAX_MONTHLY_BUDGET: ${{ secrets.OPTIMIZATION_BUDGET }}
-    OPTIMIZATION_PRIORITY: ${{ secrets.OPTIMIZATION_PRIORITY }}
-    
-  jobs:
-    optimize:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Run Optimization Agent
-          uses: autoperfai/optimize@v1
-          with:
-            budget_limit: ${{ env.MAX_MONTHLY_BUDGET }}
-            priority: ${{ env.OPTIMIZATION_PRIORITY }}
-            target_dirs: "src/,lib/"
-  ```
 
 ### Web Dashboard
 - Clean, intuitive interface for:
@@ -281,27 +273,24 @@ sequenceDiagram
 ## Technical Stack
 
 ### Core Technologies
+- Platform: Cloudflare Workers + Cloudflare Agents SDK
 - Language: TypeScript/Node.js
-- Web Framework: FastAPI (API) + Next.js (UI)
-- Database: PostgreSQL
-- Message Queue: RabbitMQ
-- Task Processing: BullMQ
-- LLM Integration: OpenAI API + LangChain
-- Container: Docker + Docker Compose
+- State Management: Cloudflare Durable Objects
+- Vector Database: Cloudflare Vectorize
+- AI Models: Workers AI + OpenAI API
 - UI Framework: Next.js + Tailwind CSS
 
-### Task Processing Features
-- Atomic operations
-- Job priorities
-- Delayed jobs
-- Job retries
-- Rate limiting
-- Job dependencies
-- Concurrent processing
+### Agent System Features
+- Built-in state management via Durable Objects
+- Real-time WebSocket communication
+- Automatic state synchronization
+- Task scheduling and workflows
+- Long-running operations support
+- Built-in retry mechanisms
 - Progress tracking
-- Job events
+- Event-driven architecture
 - Sandboxed workers
-- Built-in UI dashboard
+- Global edge deployment
 
 ### Analysis Tools
 - Static Analysis: 
@@ -317,6 +306,64 @@ sequenceDiagram
 - Python: pytest, locust
 - JavaScript: Jest, k6
 - Java: JUnit, JMH
+
+## Cloudflare Agent Integration
+
+### Agent Architecture
+- Stateful agents using Durable Objects
+- Real-time communication via WebSockets
+- Automatic state synchronization
+- Built-in SQL database per agent
+- Global edge deployment
+
+### Agent Types
+1. Repository Agent
+   - Handles repository cloning and management
+   - Manages GitHub webhooks
+   - Tracks code changes
+
+2. Analysis Agent
+   - Runs code analysis tasks
+   - Collects metrics
+   - Manages profiling sessions
+
+3. Test Agent
+   - Generates and executes tests
+   - Manages test environments
+   - Collects test results
+
+4. Optimization Agent
+   - Runs code optimization tasks
+   - Manages LLM interactions
+   - Validates code changes
+
+5. Benchmark Agent
+   - Runs performance benchmarks
+   - Collects metrics
+   - Generates comparisons
+
+6. Reporting Agent
+   - Generates reports
+   - Creates pull requests
+   - Manages notifications
+
+### Agent Communication
+- WebSocket-based real-time updates
+- State synchronization between agents
+- Event-driven architecture
+- Human-in-the-loop capabilities
+
+### Agent Deployment
+- Global edge deployment via Cloudflare
+- Automatic scaling
+- Built-in monitoring
+- Error handling and retries
+
+### Agent State Management
+- Per-agent SQL database
+- Automatic state synchronization
+- Real-time state updates
+- Persistent storage
 
 ## Security Considerations
 
