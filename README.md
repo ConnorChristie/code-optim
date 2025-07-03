@@ -76,3 +76,81 @@ flowchart LR
     H -->|"If Improved"| I["Create Pull Request"]
     I --> GitHub
 ```
+
+# Code Optimization Agent
+
+An autonomous AI agent that analyzes repositories, generates performance tests, optimizes code, and provides optimization reports.
+
+## System Requirements
+
+- Node.js (v18+)
+- Python (v3.9+)
+- Docker & Docker Compose
+- PostgreSQL
+- Redis
+- RabbitMQ
+
+## Project Structure
+
+```
+.
+├── api/                # FastAPI backend
+├── web/               # Next.js frontend
+├── core/              # Core optimization engine
+│   ├── analysis/      # Code analysis tools
+│   ├── testing/       # Test generation system
+│   ├── optimization/  # Optimization engine
+│   ├── benchmarking/  # Benchmarking system
+│   └── reporting/     # Reporting system
+├── workers/           # Background task workers
+├── lib/               # Shared libraries
+├── docker/            # Docker configuration
+└── scripts/           # Utility scripts
+```
+
+## Quick Start
+
+1. Clone the repository
+2. Copy `.env.example` to `.env` and configure environment variables
+3. Install dependencies:
+   ```bash
+   # Install backend dependencies
+   cd api && pip install -r requirements.txt
+   
+   # Install frontend dependencies
+   cd web && npm install
+   
+   # Install core dependencies
+   cd core && pip install -r requirements.txt
+   ```
+4. Start the development environment:
+   ```bash
+   docker-compose up --build
+   ```
+
+## Development
+
+- Backend API: http://localhost:8000
+- Frontend: http://localhost:3000
+- API Documentation: http://localhost:8000/docs
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and configure the following:
+
+- `GITHUB_APP_ID`: GitHub App ID
+- `GITHUB_APP_PRIVATE_KEY`: GitHub App private key
+- `OPENAI_API_KEY`: OpenAI API key
+- `DATABASE_URL`: PostgreSQL connection string
+- `REDIS_URL`: Redis connection string
+- `RABBITMQ_URL`: RabbitMQ connection string
+- `MONTHLY_BUDGET`: Monthly budget limit
+- `COST_ALERT_THRESHOLD`: Cost alert threshold
+
+## Contributing
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
