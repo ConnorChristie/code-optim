@@ -21,7 +21,7 @@ const Waitlist = () => {
 
   return (
     <form onSubmit={handleSubmit} className='w-full max-w-md'>
-      <div className='flex gap-x-4 p-2 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
+      <div className='flex gap-x-4 p-2 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300 focus-within:border-indigo-500'>
         <input
           className='flex-1 bg-transparent border-0 text-white placeholder-gray-400 px-4 py-2 text-sm focus:outline-none focus:ring-0'
           type='email'

@@ -21,23 +21,8 @@ export default function LandingPage() {
                       Autonomous Code Optimization<br className='hidden sm:block' /> Powered by AI
                     </h1>
                     <p className='mt-6 mx-auto lg:mx-0 max-w-2xl text-lg leading-8 text-gray-300'>
-                      We're building an AI agent that hunts performance bottlenecks, rewrites the slow bits for you, and proves the savings—before you ever hit deploy. Sign up today to help shape the future and secure early access.
+                      We're building an AI agent that hunts performance bottlenecks, rewrites the slow bits for you, and proves the savings—before you ever hit deploy. Join the waitlist today and get excited about the potential time savings!
                     </p>
-                    <div className='mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-x-12'>
-                      <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
-                        <div className='text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400'>40%</div>
-                        <div className='mt-2 text-sm text-gray-400'>Lower&nbsp;Cloud&nbsp;Spend* when tuned for next-gen hardware</div>
-                      </div>
-                      <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
-                        <div className='text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400'>25%</div>
-                        <div className='mt-2 text-sm text-gray-400'>Shorter&nbsp;p95&nbsp;Latency* if CPU-bound</div>
-                      </div>
-                      <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
-                        <div className='text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400'>50h</div>
-                        <div className='mt-2 text-sm text-gray-400'>User&nbsp;Time&nbsp;Saved* / 1M requests (100 ms trimmed)</div>
-                      </div>
-                    </div>
-                    <p className='mt-4 text-center lg:text-left text-xs text-gray-500 italic'>*Illustrative examples—actual results vary.</p>
                     <div className='mt-10 flex items-center justify-center lg:justify-start'>
                       <Waitlist />
                     </div>
@@ -50,18 +35,18 @@ export default function LandingPage() {
                       <div className='relative'>
                         <div className='p-6 rounded-[2rem] bg-gradient-to-br from-indigo-900/30 to-blue-900/30 backdrop-blur-lg border border-indigo-500/30 hover:border-indigo-400/50 transition-all duration-300 shadow-xl'>
                           <div className='flex items-start justify-between mb-3'>
-                            <h3 className='text-lg font-semibold'>Slow builds killing productivity</h3>
+                            <h3 className='text-lg font-semibold'>Every Millisecond Counts</h3>
                           </div>
                           <blockquote className='text-sm text-gray-300 italic mb-3'>
-                            "Every code change means a coffee break. Our team was wasting hours daily just waiting for builds to finish."
+                            "Amazon found that just 100ms of extra latency cost them 1% in sales. Speed isn't just UX—it's revenue."
                           </blockquote>
                           <div className='flex items-center justify-between'>
                             <div className='text-xs text-gray-400 flex gap-3'>
-                              <span className='text-red-400'>175s</span>
+                              <span className='text-red-400'>+100ms</span>
                               <span>→</span>
-                              <span className='text-green-400'>9.1s</span>
+                              <span className='text-red-400'>-1% sales</span>
                             </div>
-                            <a href="https://sharnoff.io/blog/why-rust-compiler-slow" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300 text-sm'>→</a>
+                            <a href="https://nitropack.io/blog/post/web-performance-matters-case-studies" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>→</a>
                           </div>
                         </div>
                         {/* Thought bubble tail */}
@@ -74,9 +59,9 @@ export default function LandingPage() {
                     <div className='absolute top-48 -left-8 w-64 transform -rotate-6 hover:-rotate-3 transition-transform duration-300'>
                       <div className='relative'>
                         <div className='p-5 rounded-[2.5rem] bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 shadow-xl'>
-                          <h3 className='text-base font-semibold mb-2'>Tired of slow code?</h3>
+                          <h3 className='text-base font-semibold mb-2'>Speed = Conversions</h3>
                           <p className='text-sm text-gray-300'>
-                            Let us pinpoint bottlenecks, fix them, and prove the savings all while you build new <span className='text-indigo-400'>features</span>.
+                            0.1s faster load times boosted conversions by <span className='text-indigo-400'>10%</span> in travel and <span className='text-indigo-400'>8.4%</span> in e-commerce.
                           </p>
                         </div>
                         {/* Thought bubble tail */}
@@ -89,10 +74,10 @@ export default function LandingPage() {
                       <div className='relative'>
                         <div className='p-5 rounded-[2rem] bg-gradient-to-br from-cyan-900/30 to-teal-900/30 backdrop-blur-lg border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300 shadow-xl'>
                           <p className='text-sm text-gray-300 font-medium'>
-                            It's time to spend <b>less</b> time waiting for slow code, slow websites, and slow apps.
+                            Sub-<span className='text-indigo-400'>0.3s</span> response feels instant to users.
                             <br />
                             <br />
-                            <b>Ain't nobody got <span className='text-indigo-400'>time</span> for that.</b>
+                            <b>That's the difference between bounce and buy.</b>
                           </p>
                         </div>
                       </div>
@@ -102,8 +87,8 @@ export default function LandingPage() {
                     <div className='absolute bottom-0 left-8 w-60 transform -rotate-3 hover:-rotate-1 transition-transform duration-300'>
                       <div className='relative'>
                         <div className='p-6 rounded-[2.5rem] bg-gradient-to-br from-indigo-900/40 to-purple-900/40 backdrop-blur-lg border border-indigo-500/40 hover:border-indigo-400/60 transition-all duration-300 shadow-xl'>
-                          <h3 className='text-base font-semibold mb-2'><span className='text-red-400'>Time</span> vs <span className='text-green-400'>Money</span></h3>
-                          <p>Every second saved compounds into massive cost reductions at scale down the line.</p>
+                          <h3 className='text-base font-semibold mb-2'>Checkout Speed Matters</h3>
+                          <p className='text-sm text-gray-300'>Every 100ms faster checkout flow = <span className='text-green-400'>+1.11%</span> conversion rate. Small changes, big impact.</p>
                         </div>
                         {/* Thought bubble tail */}
                         <div className='absolute -top-3 right-12 w-3 h-3 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-full'></div>
@@ -235,79 +220,91 @@ export default function LandingPage() {
             <div className='p-8 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <div className='flex items-start justify-between'>
                 <div>
-                  <h3 className='text-xl font-semibold mb-2'>Go Performance Tuning Journey</h3>
-                  <p className='text-sm text-gray-400 mb-4'>By Renaldi Purwanto - 2025</p>
+                  <h3 className='text-xl font-semibold mb-2'>Page Speed Impact on Conversions</h3>
+                  <p className='text-sm text-gray-400 mb-4'>By NitroPack with Google - 2024</p>
                 </div>
-                <a href="https://blog.devgenius.io/from-slow-to-snappy-go-performance-tuning-tips-that-actually-work-1c6d2d9ba959" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
+                <a href="https://nitropack.io/blog/post/how-page-speed-affects-conversion" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "Tackling bottlenecks using Go's profiling tools, we optimized code paths, goroutines, and memory usage, turning sluggish behavior into lightning fast performance."
+                "Joint research with Google revealed that just 0.1s faster load times increased conversions by 10% in travel, 8.4% in e-commerce, and 3.6% in luxury sectors."
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Go</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Performance</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Profiling</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Web Vitals</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Conversion</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>UX</span>
               </div>
             </div>
             <div className='p-8 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <div className='flex items-start justify-between'>
                 <div>
-                  <h3 className='text-xl font-semibold mb-2'>Scaling Billion-Row Dashboards</h3>
-                  <p className='text-sm text-gray-400 mb-4'>By Harness Team - 2025</p>
+                  <h3 className='text-xl font-semibold mb-2'>Web Performance in 2024</h3>
+                  <p className='text-sm text-gray-400 mb-4'>By Shopify Performance - 2024</p>
                 </div>
-                <a href="https://www.harness.io/blog/optimizing-query-performance-for-large-datasets-powering-dashboards" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
+                <a href="https://performance.shopify.com/blogs/blog/why-web-performance-still-matters" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "Facing massive dashboards backed by a 3 TB, 4 billion-row TimescaleDB table, we reengineered performance through daily/weekly aggregations."
+                "Sub-0.3s response feels instant to users. Yelp saw a 15% conversion lift after making their First Contentful Paint 45% faster. Speed isn't just UX—it's equity."
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>SQL</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>TimescaleDB</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Aggregation</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Psychology</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Accessibility</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Business</span>
               </div>
             </div>
             <div className='p-8 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <div className='flex items-start justify-between'>
                 <div>
-                  <h3 className='text-xl font-semibold mb-2'>.NET Performance Series</h3>
-                  <p className='text-sm text-gray-400 mb-4'>By NashTech Global - 2025</p>
+                  <h3 className='text-xl font-semibold mb-2'>22 Performance Case Studies</h3>
+                  <p className='text-sm text-gray-400 mb-4'>By NitroPack - 2023</p>
                 </div>
-                <a href="https://blog.nashtechglobal.com/performance-optimization-techniques-for-net-applications" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
+                <a href="https://nitropack.io/blog/post/web-performance-matters-case-studies" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "A multi-part walkthrough improving .NET memory usage, asynchronous I/O, and resource cleanup using techniques like memory pooling and BenchmarkDotNet."
+                "Amazon found 100ms slower = 1% less sales. Walmart saw 100ms faster = 1% more revenue. Firefox gained 15% more downloads after cutting 2s load time."
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>.NET</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Memory</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Async</span>
-              </div>
-            </div>
-            <div className='p-8 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
-              <div className='flex items-start justify-between'>
-                <div>
-                  <h3 className='text-xl font-semibold mb-2'>Cloud Performance Guide</h3>
-                  <p className='text-sm text-gray-400 mb-4'>By Sedai - 2025</p>
-                </div>
-                <a href="https://www.sedai.io/blog/software-performance-optimization-expert-guide" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
-              </div>
-              <blockquote className='text-gray-300 italic mb-4'>
-                "Expert guide tackles performance across the entire stack: code, resource management, metrics/SLOs, and DevOps integration with AI-driven tuning."
-              </blockquote>
-              <div className='mt-6 flex flex-wrap gap-2'>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Cloud</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>AI</span>
-                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>DevOps</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>ROI</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Enterprise</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Revenue</span>
               </div>
               <div className='mt-4 text-sm text-gray-400'>
                 <div className='flex items-center gap-4'>
                   <div className='flex items-center gap-1'>
-                    <span>Performance Gain:</span>
-                    <span className='text-green-400'>+75%</span>
+                    <span>Time Impact:</span>
+                    <span className='text-red-400'>-100ms</span>
                   </div>
                   <div className='flex items-center gap-1'>
-                    <span>Cost Reduction:</span>
-                    <span className='text-green-400'>-50%</span>
+                    <span>Revenue Impact:</span>
+                    <span className='text-green-400'>+1%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='p-8 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
+              <div className='flex items-start justify-between'>
+                <div>
+                  <h3 className='text-xl font-semibold mb-2'>Checkout Speed Study</h3>
+                  <p className='text-sm text-gray-400 mb-4'>By Cloudflare Learning - 2024</p>
+                </div>
+                <a href="https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
+              </div>
+              <blockquote className='text-gray-300 italic mb-4'>
+                "Mobify's research revealed every 100ms faster checkout flow translated to 1.11% higher conversion rate. Speed is directly tied to revenue."
+              </blockquote>
+              <div className='mt-6 flex flex-wrap gap-2'>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>E-commerce</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Conversion</span>
+                <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Checkout</span>
+              </div>
+              <div className='mt-4 text-sm text-gray-400'>
+                <div className='flex items-center gap-4'>
+                  <div className='flex items-center gap-1'>
+                    <span>Speed Gain:</span>
+                    <span className='text-green-400'>-100ms</span>
+                  </div>
+                  <div className='flex items-center gap-1'>
+                    <span>Conversion Lift:</span>
+                    <span className='text-green-400'>+1.11%</span>
                   </div>
                 </div>
               </div>
