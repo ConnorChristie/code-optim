@@ -2,14 +2,13 @@ import Waitlist from './components/Waitlist';
 import { footerNavigation } from './contentSections';
 import Footer from './components/Footer';
 import Logo from '../client/components/Logo';
-import Features from './components/Features';
 
 export default function LandingPage() {
   return (
     <div className='w-full text-white'>
       <div className='mx-auto max-w-[90rem]'>
-        <div className='pt-14'>
-          <div className='py-24 sm:py-32'>
+        <div className='pt-10'>
+          <div className='py-16 sm:py-24'>
             <div className='mx-auto px-4 sm:px-6 lg:px-8'>
               <div className='mx-auto max-w-3xl text-center'>
                 <div className='flex justify-center mb-8'>
@@ -35,14 +34,13 @@ export default function LandingPage() {
                     <div className='mt-2 text-sm text-gray-400'>Manual Effort Required</div>
                   </div>
                 </div>
-                <div className='mt-10 flex items-center justify-center gap-x-6'>
+                <div className='mt-10 flex items-center justify-center'>
                   <Waitlist />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <Features />
         <Footer footerNavigation={footerNavigation} />
       </div>
     </div>

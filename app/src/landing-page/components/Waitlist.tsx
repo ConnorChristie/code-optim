@@ -21,9 +21,9 @@ const Waitlist = () => {
 
   return (
     <form onSubmit={handleSubmit} className='w-full max-w-md'>
-      <div className='flex items-center border-b border-teal-500 py-2'>
+      <div className='flex gap-x-4 p-2 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
         <input
-          className='appearance-none bg-transparent border-none w-full text-white placeholder-gray-400 mr-3 py-1 px-2 leading-tight focus:outline-none focus:ring-0'
+          className='flex-1 bg-transparent border-0 text-white placeholder-gray-400 px-4 py-2 text-sm focus:outline-none focus:ring-0'
           type='email'
           placeholder='Enter your email'
           aria-label='Email address'
@@ -31,7 +31,7 @@ const Waitlist = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <button
-          className='flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded'
+          className='rounded-xl bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 text-white px-6 py-2 text-sm font-semibold shadow-sm hover:opacity-90 transition-opacity duration-300'
           type='submit'
         >
           Join Waitlist
