@@ -1,5 +1,5 @@
 from typing import Dict, Any, Optional
-from langchain.callbacks import BaseCallbackHandler
+from langchain_core.callbacks import BaseCallbackHandler
 from langchain.schema import BaseMessage
 from pydantic import BaseModel
 

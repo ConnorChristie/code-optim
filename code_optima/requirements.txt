@@ -1,7 +1,9 @@
 langgraph
 langchain
+langchain-core
 langchain-openai
 pydantic
+pydantic-settings
 redis
 prometheus-client
 opentelemetry-api

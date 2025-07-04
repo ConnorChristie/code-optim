@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from typing import Dict, Optional
 from functools import lru_cache
 
@@ -11,6 +12,8 @@ class LLMConfig(BaseSettings):
     frequency_penalty: float = 0.0
 
 class Settings(BaseSettings):
+    model_config = ConfigDict(env_file=".env")
+    
     OPENAI_API_KEY: str
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6379
@@ -49,9 +52,6 @@ class Settings(BaseSettings):
     
     CELERY_BROKER_URL: str = "redis://localhost:6379/1"
     CELERY_RESULT_BACKEND: str = "redis://localhost:6379/1"
-
-    class Config:
-        env_file = ".env"
 
 @lru_cache()
 def get_settings() -> Settings:

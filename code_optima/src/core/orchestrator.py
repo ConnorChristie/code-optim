@@ -13,7 +13,7 @@ import logging
 
 from ..agents.base import AgentState
 from ..agents.baseline_builder import BaselineBuilderAgent
-from ..agents.analyzer import AnalyzerAgent
+from ..agents.codex_analyzer import CodexAnalyzerAgent
 from ..agents.refactor import RefactorAgent
 from .config import get_settings
 
@@ -51,7 +51,7 @@ class OptimizationOrchestrator:
     def _build_graph(self) -> StateGraph:
         # Initialize agents
         baseline = BaselineBuilderAgent()
-        analyzer = AnalyzerAgent()
+        analyzer = CodexAnalyzerAgent()
         refactor = RefactorAgent()
         
         # Build graph
