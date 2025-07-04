@@ -6,75 +6,68 @@ import avatarPlaceholder from '../client/static/avatar-placeholder.webp';
 
 export const landingPageNavigationItems: NavigationItem[] = [
   { name: 'Features', to: '#features' },
-  { name: 'Pricing', to: routes.PricingPageRoute.to },
   { name: 'Documentation', to: DocsUrl },
   { name: 'Blog', to: BlogUrl },
 ];
+
 export const features = [
   {
-    name: 'Cool Feature #1',
-    description: 'Describe your cool feature here.',
-    icon: '🤝',
+    name: 'AI-Powered Hot-spot Detection',
+    description: 'Automatically identify performance bottlenecks in your code using advanced profiling and AI analysis.',
+    icon: '🔍',
     href: DocsUrl,
   },
   {
-    name: 'Cool Feature #2',
-    description: 'Describe your cool feature here.',
-    icon: '🔐',
+    name: 'Smart Patch Generation',
+    description: 'Get AI-generated optimizations that improve code performance while maintaining functionality.',
+    icon: '🤖',
     href: DocsUrl,
   },
   {
-    name: 'Cool Feature #3',
-    description: 'Describe your cool feature here.',
-    icon: '🥞',
+    name: 'Automated Benchmarking',
+    description: 'Continuous performance monitoring with automatic benchmarking to catch regressions early.',
+    icon: '📊',
     href: DocsUrl,
   },
   {
-    name: 'Cool Feature #4',
-    description: 'Describe your cool feature here.',
-    icon: '💸',
+    name: 'GitHub Integration',
+    description: 'Seamless integration with GitHub for automated PR creation and code review workflow.',
+    icon: '🔄',
     href: DocsUrl,
   },
 ];
-export const testimonials = [
-  {
-    name: 'Da Boi',
-    role: 'Wasp Mascot',
-    avatarSrc: daBoiAvatar,
-    socialUrl: 'https://twitter.com/wasplang',
-    quote: "I don't even know how to code. I'm just a plushie.",
-  },
-  {
-    name: 'Mr. Foobar',
-    role: 'Founder @ Cool Startup',
-    avatarSrc: avatarPlaceholder,
-    socialUrl: '',
-    quote: 'This product makes me cooler than I already am.',
-  },
-  {
-    name: 'Jamie',
-    role: 'Happy Customer',
-    avatarSrc: avatarPlaceholder,
-    socialUrl: '#',
-    quote: 'My cats love it!',
-  },
-];
+
+export const testimonials = [];
 
 export const faqs = [
   {
     id: 1,
-    question: 'Whats the meaning of life?',
-    answer: '42.',
-    href: 'https://en.wikipedia.org/wiki/42_(number)',
+    question: 'How does Code Optima work?',
+    answer: 'Code Optima uses AI to analyze your codebase, detect performance bottlenecks, and generate optimized patches. It integrates with your GitHub workflow to automatically create pull requests with performance improvements.',
+  },
+  {
+    id: 2,
+    question: 'What programming languages are supported?',
+    answer: 'Initially, we support Python and Go codebases, with more languages coming soon.',
+  },
+  {
+    id: 3,
+    question: 'How much does it cost?',
+    answer: 'Pricing will be announced at launch. Join our waitlist to be notified and get early access pricing.',
+  },
+  {
+    id: 4,
+    question: 'Is it safe to use AI-generated code optimizations?',
+    answer: 'Yes! Code Optima includes rigorous benchmarking and testing to ensure optimizations maintain functionality. All changes are proposed via pull requests for your team to review.',
   },
 ];
+
 export const footerNavigation = {
   app: [
     { name: 'Documentation', href: DocsUrl },
     { name: 'Blog', href: BlogUrl },
   ],
   company: [
-    { name: 'About', href: 'https://wasp.sh' },
     { name: 'Privacy', href: '#' },
     { name: 'Terms of Service', href: '#' },
   ],

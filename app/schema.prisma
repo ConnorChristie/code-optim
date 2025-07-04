@@ -110,3 +110,14 @@ model ContactFormMessage {
   isRead                    Boolean         @default(false)
   repliedAt                 DateTime?
 }
+
+model WaitlistEntry {
+  id                        String          @id @default(uuid())
+  createdAt                 DateTime        @default(now())
+  email                     String          @unique
+  name                      String?
+  company                   String?
+  githubUsername           String?
+  isInvited                Boolean         @default(false)
+  invitedAt                DateTime?
+}
