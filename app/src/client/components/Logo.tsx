@@ -1,8 +1,13 @@
-export default function Logo() {
+interface LogoProps {
+  svgClassName?: string;
+  textClassName?: string;
+}
+
+export default function Logo({ svgClassName = 'h-12 w-12', textClassName = 'text-4xl' }: LogoProps = {}) {
   return (
     <div className='flex items-center space-x-2'>
       <svg
-        className='h-12 w-12 text-indigo-600'
+        className={`${svgClassName} text-indigo-600`}
         xmlns='http://www.w3.org/2000/svg'
         fill='none'
         viewBox='0 0 24 24'
@@ -15,7 +20,7 @@ export default function Logo() {
           d='M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
         />
       </svg>
-      <span className='text-4xl font-bold text-white'>Code Optima</span>
+      <span className={`${textClassName} font-bold text-white`}>Code Optima</span>
     </div>
   );
 } 

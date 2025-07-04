@@ -1,8 +1,7 @@
 import './Main.css';
 import NavBar from './components/NavBar/NavBar';
 import CookieConsentBanner from './components/cookie-consent/Banner';
-import { appNavigationItems } from './components/NavBar/contentSections';
-import { landingPageNavigationItems } from '../landing-page/contentSections';
+import { appNavigationItems, landingPageNavigationItems } from './components/NavBar/contentSections';
 import { useMemo, useEffect } from 'react';
 import { routes } from 'wasp/client/router';
 import { Outlet, useLocation } from 'react-router-dom';

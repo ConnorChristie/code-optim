@@ -17,14 +17,6 @@ import {
   FaUserGroup
 } from 'react-icons/fa6';
 
-export const landingPageNavigationItems: NavigationItem[] = [
-  { name: 'Features', to: '#features' },
-  { name: 'System', to: '#system' },
-  { name: 'Case Studies', to: '#case-studies' },
-  { name: 'Documentation', to: DocsUrl },
-  { name: 'Blog', to: BlogUrl },
-];
-
 export const features = [
   {
     name: 'AI-Powered Analysis',

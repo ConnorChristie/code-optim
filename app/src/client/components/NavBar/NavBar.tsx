@@ -3,7 +3,6 @@ import { Link as WaspRouterLink, routes } from 'wasp/client/router';
 import { useAuth } from 'wasp/client/auth';
 import { useState, Dispatch, SetStateAction } from 'react';
 import { Dialog } from '@headlessui/react';
-import { BiLogIn } from 'react-icons/bi';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { HiBars3 } from 'react-icons/hi2';
 import logo from '../../static/logo.webp';
@@ -11,6 +10,7 @@ import DropdownUser from '../../../user/DropdownUser';
 import { UserMenuItems } from '../../../user/UserMenuItems';
 import { useIsLandingPage } from '../../hooks/useIsLandingPage';
 import { cn } from '../../cn';
+import Logo from '../Logo';
 
 export interface NavigationItem {
   name: string;
@@ -30,16 +30,13 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
         'shadow sticky': !isLandingPage,
       })}
     >
-      <nav className='flex items-center justify-between p-6 lg:px-8' aria-label='Global'>
+      <nav className='flex items-center justify-between px-6 py-3 lg:px-8' aria-label='Global'>
         <div className='flex items-center lg:flex-1'>
           <WaspRouterLink
             to={routes.LandingPageRoute.to}
             className='flex items-center -m-1.5 p-1.5 text-white duration-300 ease-in-out hover:text-indigo-400'
           >
-            <NavLogo />
-            <span className='ml-2 text-sm font-semibold leading-6 text-gray-300'>
-              Code Optima
-            </span>
+            <Logo svgClassName="h-5 w-5" textClassName="text-base" />
           </WaspRouterLink>
         </div>
         <div className='flex lg:hidden'>
@@ -76,7 +73,7 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
           <div className='flex items-center justify-between'>
             <WaspRouterLink to={routes.LandingPageRoute.to} className='-m-1.5 p-1.5'>
               <span className='sr-only'>Code Optima</span>
-              <NavLogo />
+              <Logo svgClassName="h-8 w-8" textClassName="text-2xl" />
             </WaspRouterLink>
             <button
               type='button'
