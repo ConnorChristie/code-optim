@@ -245,6 +245,16 @@ module.exports = {
         speedLinesSlow: {
           '0%': { backgroundPosition: '300% 0' },
           '100%': { backgroundPosition: '-300% 0' }
+        },
+        'fade-slide-down': {
+          '0%': {
+            opacity: '0',
+            transform: 'translateY(-10px)'
+          },
+          '100%': {
+            opacity: '1',
+            transform: 'translateY(0)'
+          }
         }
       },
       animation: {
@@ -255,6 +265,11 @@ module.exports = {
         'spin-3': 'spin 3s linear infinite',
         'speed-lines': 'speedLines 8s linear infinite',
         'speed-lines-slow': 'speedLinesSlow 12s linear infinite',
+        'fade-slide-down': 'fade-slide-down 0.3s ease-in-out forwards'
+      },
+      scale: {
+        '98': '0.98',
+        '102': '1.02',
       },
     },
   },

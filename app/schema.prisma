@@ -118,9 +118,10 @@ model WaitlistEntry {
   email                     String          @unique
   name                      String?
   company                   String?
-  githubUsername           String?
-  isInvited                Boolean         @default(false)
-  invitedAt                DateTime?
+  githubUsername            String?
+  githubUrl                 String?
+  isInvited                 Boolean         @default(false)
+  invitedAt                 DateTime?
 }
 
 // Code Optimization Models

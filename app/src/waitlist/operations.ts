@@ -3,9 +3,9 @@ import { HttpError } from 'wasp/server';
 import { type AddToWaitlist } from 'wasp/server/operations';
 
 export const addToWaitlist: AddToWaitlist<
-  { email: string },
+  { email: string; githubUrl?: string },
   WaitlistEntry
-> = async ({ email }, context) => {
+> = async ({ email, githubUrl }, context) => {
   if (!email) {
     throw new HttpError(400, 'Email is required');
   }
@@ -19,6 +19,9 @@ export const addToWaitlist: AddToWaitlist<
   }
 
   return context.entities.WaitlistEntry.create({
-    data: { email },
+    data: { 
+      email,
+      githubUrl,
+    },
   });
 };

@@ -4,6 +4,7 @@ import { Prisma, PrismaClient } from '@prisma/client';
 
 const waitlistSchema = z.object({
   email: z.string().email(),
+  githubUrl: z.string().url().optional(),
   name: z.string().optional(),
   company: z.string().optional(),
   githubUsername: z.string().optional(),
