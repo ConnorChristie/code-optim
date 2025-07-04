@@ -10,12 +10,12 @@ export default defineConfig({
   trailingSlash: 'always',
   integrations: [
     starlight({
-      title: 'Your SaaS',
+      title: 'Code Optima',
       customCss: ['./src/styles/tailwind.css'],
       description: 'Documentation for your SaaS.',
       logo: {
         src: '/src/assets/logo.webp',
-        alt: 'Your SaaS',
+        alt: 'Code Optima',
       },
       head: [
         // Add your script tags here. Below is an example for Google analytics, etc.

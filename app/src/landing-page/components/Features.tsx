@@ -3,7 +3,7 @@ import Section from './Section';
 
 export default function Features() {
   return (
-    <Section className='py-24 sm:py-32' id='features'>
+    <Section className='py-12 sm:py-16' id='features'>
       <div className='mx-auto max-w-2xl lg:text-center'>
         <h2 className='text-base font-semibold leading-7 text-indigo-600 dark:text-indigo-400'>Deploy faster</h2>
         <p className='mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl dark:text-white'>

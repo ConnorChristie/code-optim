@@ -17,7 +17,7 @@ export const UserMenuItems = ({ user, setMobileMenuOpen }: { user?: Partial<User
   return (
     <>
       <ul
-        className={cn('flex flex-col gap-5 border-b border-stroke py-4 dark:border-strokedark', {
+        className={cn('flex flex-col gap-5 py-4', {
           'sm:px-6': path !== adminDashboardPath,
           'px-6': path === adminDashboardPath,
         })}
@@ -62,7 +62,7 @@ export const UserMenuItems = ({ user, setMobileMenuOpen }: { user?: Partial<User
       </ul>
       {!!user && user.isAdmin && (
         <ul
-          className={cn('flex flex-col gap-5 border-b border-stroke py-4 dark:border-strokedark', {
+          className={cn('flex flex-col gap-5 py-4', {
             'sm:px-6': path !== adminDashboardPath,
             'px-6': path === adminDashboardPath,
           })}

@@ -15,10 +15,10 @@ app OpenSaaS {
     "<meta property='og:type' content='website' />",
     "<meta property='og:title' content='Code Optima' />",
     "<meta property='og:site_name' content='Code Optima' />",
-    "<meta property='og:url' content='https://codeoptima.com' />",
+    "<meta property='og:url' content='https://codeoptima.ai' />",
     "<meta property='og:description' content='Code Optima is a platform for creating and managing your code.' />",
-    "<meta property='og:image' content='https://codeoptima.com/public-banner.webp' />",
-    "<meta name='twitter:image' content='https://codeoptima.com/public-banner.webp' />",
+    "<meta property='og:image' content='https://codeoptima.ai/public-banner.webp' />",
+    "<meta name='twitter:image' content='https://codeoptima.ai/public-banner.webp' />",
     "<meta name='twitter:image:width' content='800' />",
     "<meta name='twitter:image:height' content='400' />",
     "<meta name='twitter:card' content='summary_large_image' />",
@@ -26,8 +26,8 @@ app OpenSaaS {
     // NOTE: Plausible does not use Cookies, so you can simply add the scripts here.
     // Google, on the other hand, does, so you must instead add the script dynamically
     // via the Cookie Consent component after the user clicks the "Accept" cookies button.
-    "<script defer data-domain='codeoptima.com' src='https://plausible.io/js/script.js'></script>",  // for production
-    "<script defer data-domain='codeoptima.com' src='https://plausible.io/js/script.local.js'></script>",  // for development
+    "<script defer data-domain='codeoptima.ai' src='https://plausible.io/js/script.js'></script>",  // for production
+    "<script defer data-domain='codeoptima.ai' src='https://plausible.io/js/script.local.js'></script>",  // for development
   ],
 
   // 🔐 Auth out of the box! https://wasp.sh/docs/auth/overview
@@ -39,7 +39,7 @@ app OpenSaaS {
       email: {
         fromField: {
           name: "Code Optima",
-          email: "hello@codeoptima.com"
+          email: "hello@codeoptima.ai"
         },
         emailVerification: {
           clientRoute: EmailVerificationRoute,
@@ -57,10 +57,10 @@ app OpenSaaS {
         configFn: import { getGoogleAuthConfig } from "@src/auth/userSignupFields",
       },
       // Uncomment to enable GitHub Auth (check https://wasp.sh/docs/auth/social-auth/github for setup instructions):
-      // gitHub: {
-      //   userSignupFields: import { getGitHubUserFields } from "@src/auth/userSignupFields",
-      //   configFn: import { getGitHubAuthConfig } from "@src/auth/userSignupFields",
-      // },
+      gitHub: {
+        userSignupFields: import { getGitHubUserFields } from "@src/auth/userSignupFields",
+        configFn: import { getGitHubAuthConfig } from "@src/auth/userSignupFields",
+      },
       // Uncomment to enable Discord Auth (check https://wasp.sh/docs/auth/social-auth/discord for setup instructions):
       // discord: {
       //   userSignupFields: import { getDiscordUserFields } from "@src/auth/userSignupFields",
@@ -91,7 +91,7 @@ app OpenSaaS {
     defaultFrom: {
       name: "Code Optima",
       // When using a real provider, e.g. SendGrid, you must use the same email address that you configured your account to send out emails with!
-      email: "hello@codeoptima.com"
+      email: "hello@codeoptima.ai"
     },
   },
 }

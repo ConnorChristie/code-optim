@@ -16,7 +16,7 @@ export default function Footer({ footerNavigation }: {
     <div className='mx-auto max-w-7xl px-6 lg:px-8'>
       <footer
         aria-labelledby='footer-heading'
-        className='relative border-t border-gray-900/10 dark:border-gray-200/10 py-24 sm:mt-32'
+        className='relative border-t border-gray-900/10 dark:border-gray-200/10 py-12 sm:mt-16'
       >
         <h2 id='footer-heading' className='sr-only'>
           Footer
