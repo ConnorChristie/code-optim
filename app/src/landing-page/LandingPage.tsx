@@ -1,14 +1,15 @@
-import Waitlist from './components/Waitlist';
 import { footerNavigation } from './contentSections';
 import Footer from './components/Footer';
 import Logo from '../client/components/Logo';
+import { ThoughtBubbles } from './components/ThoughtBubbles';
+import Waitlist from './components/Waitlist';
 
 export default function LandingPage() {
   return (
     <div className='w-full text-white'>
       <div className='mx-auto max-w-[90rem]'>
-        <div className='pt-10'>
-          <div className='py-16 sm:py-24'>
+        <div className='pt-6 sm:pt-10'>
+          <div className='py-12 sm:py-16'>
             <div className='mx-auto px-4 sm:px-6 lg:px-8'>
               <div className='grid grid-cols-1 lg:grid-cols-5 gap-8'>
                 <div className='lg:col-span-3'>
@@ -16,103 +17,37 @@ export default function LandingPage() {
                     <div className='flex justify-center lg:justify-start mb-8'>
                       <Logo />
                     </div>
-                    <span className='inline-block px-4 py-1 mb-4 rounded-full text-sm font-semibold bg-indigo-600/20 text-indigo-300 backdrop-blur-lg'>Concept Stage</span>
+                    <span className='inline-block px-4 py-1 mb-4 rounded-full text-sm font-semibold bg-indigo-600/20 text-indigo-300 backdrop-blur-lg'>Ready to Accelerate?</span>
                     <h1 className='text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 sm:text-7xl'>
-                      Autonomous Code Optimization<br className='hidden sm:block' /> Powered by AI
+                      Let's Make the Internet<br className='hidden sm:block' /> Blazing Fast!
                     </h1>
                     <p className='mt-6 mx-auto lg:mx-0 max-w-2xl text-lg leading-8 text-gray-300'>
-                      We're building an AI agent that hunts performance bottlenecks, rewrites the slow bits for you, and proves the savings—before you ever hit deploy. Join the waitlist today and get excited about the potential time savings!
+                      We believe your time is priceless! Code Optima is your AI co-pilot that hunts down performance slowpokes, fixes them in a flash, and rockets your app to warp speed—while you focus on what you love.
                     </p>
-                    <div className='mt-10 flex items-center justify-center lg:justify-start'>
+                    <div className='mt-10'>
                       <Waitlist />
                     </div>
                   </div>
                 </div>
                 <div className='lg:col-span-2 space-y-6'>
-                  <div className='relative h-full min-h-[600px]'>
-                    {/* First thought bubble - top right */}
-                    <div className='absolute top-0 right-0 w-72 transform rotate-3 hover:rotate-1 transition-transform duration-300'>
-                      <div className='relative'>
-                        <div className='p-6 rounded-[2rem] bg-gradient-to-br from-indigo-900/30 to-blue-900/30 backdrop-blur-lg border border-indigo-500/30 hover:border-indigo-400/50 transition-all duration-300 shadow-xl'>
-                          <div className='flex items-start justify-between mb-3'>
-                            <h3 className='text-lg font-semibold'>Every Millisecond Counts</h3>
-                          </div>
-                          <blockquote className='text-sm text-gray-300 italic mb-3'>
-                            "Amazon found that just 100ms of extra latency cost them 1% in sales. Speed isn't just UX—it's revenue."
-                          </blockquote>
-                          <div className='flex items-center justify-between'>
-                            <div className='text-xs text-gray-400 flex gap-3'>
-                              <span className='text-red-400'>+100ms</span>
-                              <span>→</span>
-                              <span className='text-red-400'>-1% sales</span>
-                            </div>
-                            <a href="https://nitropack.io/blog/post/web-performance-matters-case-studies" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>→</a>
-                          </div>
-                        </div>
-                        {/* Thought bubble tail */}
-                        <div className='absolute -bottom-4 left-12 w-4 h-4 bg-gradient-to-br from-indigo-900/30 to-blue-900/30 rounded-full'></div>
-                        <div className='absolute -bottom-6 left-8 w-3 h-3 bg-gradient-to-br from-indigo-900/30 to-blue-900/30 rounded-full'></div>
-                      </div>
-                    </div>
-
-                    {/* Second thought bubble - middle left */}
-                    <div className='absolute top-48 -left-8 w-64 transform -rotate-6 hover:-rotate-3 transition-transform duration-300'>
-                      <div className='relative'>
-                        <div className='p-5 rounded-[2.5rem] bg-gradient-to-br from-purple-900/30 to-pink-900/30 backdrop-blur-lg border border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 shadow-xl'>
-                          <h3 className='text-base font-semibold mb-2'>Speed = Conversions</h3>
-                          <p className='text-sm text-gray-300'>
-                            0.1s faster load times boosted conversions by <span className='text-indigo-400'>10%</span> in travel and <span className='text-indigo-400'>8.4%</span> in e-commerce.
-                          </p>
-                        </div>
-                        {/* Thought bubble tail */}
-                        <div className='absolute -bottom-3 right-16 w-3 h-3 bg-gradient-to-br from-purple-900/30 to-pink-900/30 rounded-full'></div>
-                      </div>
-                    </div>
-
-                    {/* Third thought bubble - bottom right */}
-                    <div className='absolute bottom-20 right-4 w-56 transform rotate-2 hover:rotate-0 transition-transform duration-300'>
-                      <div className='relative'>
-                        <div className='p-5 rounded-[2rem] bg-gradient-to-br from-cyan-900/30 to-teal-900/30 backdrop-blur-lg border border-cyan-500/30 hover:border-cyan-400/50 transition-all duration-300 shadow-xl'>
-                          <p className='text-sm text-gray-300 font-medium'>
-                            Sub-<span className='text-indigo-400'>0.3s</span> response feels instant to users.
-                            <br />
-                            <br />
-                            <b>That's the difference between bounce and buy.</b>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Fourth thought bubble - share your story */}
-                    <div className='absolute bottom-0 left-8 w-60 transform -rotate-3 hover:-rotate-1 transition-transform duration-300'>
-                      <div className='relative'>
-                        <div className='p-6 rounded-[2.5rem] bg-gradient-to-br from-indigo-900/40 to-purple-900/40 backdrop-blur-lg border border-indigo-500/40 hover:border-indigo-400/60 transition-all duration-300 shadow-xl'>
-                          <h3 className='text-base font-semibold mb-2'>Checkout Speed Matters</h3>
-                          <p className='text-sm text-gray-300'>Every 100ms faster checkout flow = <span className='text-green-400'>+1.11%</span> conversion rate. Small changes, big impact.</p>
-                        </div>
-                        {/* Thought bubble tail */}
-                        <div className='absolute -top-3 right-12 w-3 h-3 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-full'></div>
-                        <div className='absolute -top-5 right-16 w-2 h-2 bg-gradient-to-br from-indigo-900/40 to-purple-900/40 rounded-full'></div>
-                      </div>
-                    </div>
-
-                    {/* Floating idea particles */}
-                    <div className='absolute top-32 right-32 w-2 h-2 bg-indigo-400/30 rounded-full animate-pulse'></div>
-                    <div className='absolute top-64 right-8 w-3 h-3 bg-purple-400/30 rounded-full animate-pulse' style={{ animationDelay: '200ms' }}></div>
-                    <div className='absolute bottom-48 right-48 w-2 h-2 bg-cyan-400/30 rounded-full animate-pulse' style={{ animationDelay: '400ms' }}></div>
+                  <div className='hidden lg:block'>
+                    <ThoughtBubbles variant='desktop' />
+                  </div>
+                  <div className='lg:hidden'>
+                    <ThoughtBubbles variant='mobile' />
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className='mt-24 py-16 border-t border-gray-800'>
+        <div className='mt-12 sm:mt-24 py-12 sm:py-16 border-t border-gray-800'>
           <div className='mx-auto max-w-4xl text-center px-4 sm:px-6 lg:px-8'>
             <h2 className='text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 sm:text-4xl'>
-              Code Optima is Coming
+              Time is Your Most Valuable Asset
             </h2>
             <p className='mt-4 text-lg leading-8 text-gray-300'>
-              We are still in the concept phase, but our vision is bold: an autonomous AI that optimizes your codebase, slashes costs, and elevates user experiences—all without manual refactors.
+              Every millisecond saved is a moment gained. Our autonomous AI slices loading times, slashes cloud costs, and hands you back hours of precious dev time—all while dazzling your users with instant experiences.
             </p>
           </div>
           <div className='mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 px-4 sm:px-6 lg:px-8'>
@@ -137,10 +72,12 @@ export default function LandingPage() {
             <Waitlist />
           </div>
         </div>
-        <div className='mt-24 py-16 border-t border-gray-800'>
+        <div className='mt-12 sm:mt-24 py-12 sm:py-16 border-t border-gray-800'>
           <div className='mx-auto max-w-4xl text-center px-4 sm:px-6 lg:px-8'>
             <h2 className='text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 sm:text-4xl'>
-              Real-World Use Cases
+              Mind-Blowing Ways
+              <br />
+              Teams Will Win with Code Optima
             </h2>
             <p className='mt-4 text-lg leading-8 text-gray-300'>
               A sneak peek at how teams will put Code Optima to work once we launch.
@@ -165,7 +102,7 @@ export default function LandingPage() {
             </div>
             <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <h3 className='text-xl font-semibold mb-2'>Continuous PR Guardrails</h3>
-              <p className='text-sm text-gray-400'>Every pull request gets an Optimization Score with inline fixes before your code hits production.</p>
+              <p className='text-sm text-gray-400'>Want to make sure new code doesn't cause performance regressions? Code Optima analyzes each pull request to ensure that doesn't happen.</p>
             </div>
             <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <h3 className='text-xl font-semibold mb-2'>Test Generation & Validation</h3>
@@ -176,10 +113,10 @@ export default function LandingPage() {
             <Waitlist />
           </div>
         </div>
-        <div className='mt-24 py-16 border-t border-gray-800'>
+        <div className='mt-12 sm:mt-24 py-12 sm:py-16 border-t border-gray-800'>
           <div className='mx-auto max-w-4xl text-center px-4 sm:px-6 lg:px-8'>
             <h2 className='text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 sm:text-4xl'>
-              How Code Optima Works
+              Under the Hood: The AI Power Loop
             </h2>
             <p className='mt-4 text-lg leading-8 text-gray-300'>
               An AI-driven feedback loop that finds the slow spots, tests them, fixes them, and proves it.
@@ -207,10 +144,10 @@ export default function LandingPage() {
             <Waitlist />
           </div>
         </div>
-        <div className='mt-24 py-16 border-t border-gray-800'>
+        <div className='mt-12 sm:mt-24 py-12 sm:py-16 border-t border-gray-800'>
           <div className='mx-auto max-w-4xl text-center px-4 sm:px-6 lg:px-8'>
             <h2 className='text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 sm:text-4xl'>
-              Inspiration & Insights
+              Fueling Our Mission
             </h2>
             <p className='mt-4 text-lg leading-8 text-gray-300'>
               Discover the stories and insights that inspired Code Optima's mission to revolutionize code optimization.
