@@ -15,7 +15,7 @@ export default function Logo() {
           d='M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
         />
       </svg>
-      <span className='text-4xl font-bold text-gray-900 dark:text-white'>Code Optima</span>
+      <span className='text-4xl font-bold text-white'>Code Optima</span>
     </div>
   );
 } 

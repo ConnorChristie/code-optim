@@ -9,7 +9,6 @@ import { HiBars3 } from 'react-icons/hi2';
 import logo from '../../static/logo.webp';
 import DropdownUser from '../../../user/DropdownUser';
 import { UserMenuItems } from '../../../user/UserMenuItems';
-import DarkModeSwitcher from '../DarkModeSwitcher';
 import { useIsLandingPage } from '../../hooks/useIsLandingPage';
 import { cn } from '../../cn';
 
@@ -55,16 +54,13 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
         </div>
         <div className='hidden lg:flex lg:gap-x-12'>{renderNavigationItems(navigationItems)}</div>
         <div className='hidden lg:flex lg:flex-1 gap-3 justify-end items-center'>
-          <ul className='flex justify-center items-center gap-2 sm:gap-4'>
-            <DarkModeSwitcher />
-          </ul>
           {isUserLoading ? null : !user ? (
             <WaspRouterLink 
               to={routes.LoginRoute.to} 
               className='text-sm font-semibold leading-6 ml-3 text-gray-300 hover:text-white transition-colors duration-300'
             >
               <div className='flex items-center'>
-                Log in <BiLogIn size='1.1rem' className='ml-1 mt-[0.1rem]' />
+                Log in
               </div>
             </WaspRouterLink>
           ) : (
@@ -98,15 +94,12 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
                 {isUserLoading ? null : !user ? (
                   <WaspRouterLink to={routes.LoginRoute.to}>
                     <div className='flex justify-end items-center text-gray-300 hover:text-white transition-colors duration-300'>
-                      Log in <BiLogIn size='1.1rem' className='ml-1' />
+                      Log in
                     </div>
                   </WaspRouterLink>
                 ) : (
                   <UserMenuItems user={user} setMobileMenuOpen={setMobileMenuOpen} />
                 )}
-              </div>
-              <div className='py-6'>
-                <DarkModeSwitcher />
               </div>
             </div>
           </div>

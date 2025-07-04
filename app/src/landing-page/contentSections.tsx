@@ -1,8 +1,8 @@
 import type { NavigationItem } from '../client/components/NavBar/NavBar';
-import { routes } from 'wasp/client/router';
 import { DocsUrl, BlogUrl } from '../shared/common';
 import daBoiAvatar from '../client/static/da-boi.webp';
 import avatarPlaceholder from '../client/static/avatar-placeholder.webp';
+import { FaChartLine, FaGithub, FaMagnifyingGlass, FaRobot } from 'react-icons/fa6';
 
 export const landingPageNavigationItems: NavigationItem[] = [
   { name: 'Features', to: '#features' },
@@ -14,25 +14,25 @@ export const features = [
   {
     name: 'AI-Powered Hot-spot Detection',
     description: 'Automatically identify performance bottlenecks in your code using advanced profiling and AI analysis.',
-    icon: '🔍',
+    icon: <FaMagnifyingGlass />,
     href: DocsUrl,
   },
   {
     name: 'Smart Patch Generation',
     description: 'Get AI-generated optimizations that improve code performance while maintaining functionality.',
-    icon: '🤖',
+    icon: <FaRobot />,
     href: DocsUrl,
   },
   {
     name: 'Automated Benchmarking',
     description: 'Continuous performance monitoring with automatic benchmarking to catch regressions early.',
-    icon: '📊',
+    icon: <FaChartLine />,
     href: DocsUrl,
   },
   {
     name: 'GitHub Integration',
     description: 'Seamless integration with GitHub for automated PR creation and code review workflow.',
-    icon: '🔄',
+    icon: <FaGithub />,
     href: DocsUrl,
   },
 ];

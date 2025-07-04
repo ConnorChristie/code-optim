@@ -6,7 +6,6 @@ import { landingPageNavigationItems } from '../landing-page/contentSections';
 import { useMemo, useEffect } from 'react';
 import { routes } from 'wasp/client/router';
 import { Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from 'wasp/client/auth';
 import { useIsLandingPage } from './hooks/useIsLandingPage';
 
 /**
@@ -15,13 +14,9 @@ import { useIsLandingPage } from './hooks/useIsLandingPage';
  */
 export default function App() {
   const location = useLocation();
-  const { data: user } = useAuth();
   const isLandingPage = useIsLandingPage();
-  const navigationItems = isLandingPage ? landingPageNavigationItems : appNavigationItems;
-
-  const shouldDisplayAppNavBar = useMemo(() => {
-    return location.pathname !== routes.LoginRoute.build() && location.pathname !== routes.SignupRoute.build();
-  }, [location]);
+  const isAuthPage = location.pathname === routes.LoginRoute.build();
+  const navigationItems = isLandingPage || isAuthPage ? landingPageNavigationItems : appNavigationItems;
 
   const isAdminDashboard = useMemo(() => {
     return location.pathname.startsWith('/admin');
@@ -62,7 +57,7 @@ export default function App() {
           <Outlet />
         ) : (
           <>
-            {shouldDisplayAppNavBar && <NavBar navigationItems={navigationItems} />}
+            <NavBar navigationItems={navigationItems} />
             <div className='relative flex-grow'>
               <Outlet />
             </div>

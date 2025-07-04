@@ -38,9 +38,6 @@ export default function LandingPage() {
                 <div className='mt-10 flex items-center justify-center gap-x-6'>
                   <Waitlist />
                 </div>
-                <div className='mt-8 text-sm text-gray-400'>
-                  Trusted by developers at leading tech companies
-                </div>
               </div>
             </div>
           </div>

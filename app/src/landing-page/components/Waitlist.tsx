@@ -8,7 +8,7 @@ const Waitlist = () => {
   const [email, setEmail] = useState('');
   const addToWaitlistMutation = useAction(addToWaitlist);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await addToWaitlistMutation({ email });
@@ -23,7 +23,7 @@ const Waitlist = () => {
     <form onSubmit={handleSubmit} className='w-full max-w-md'>
       <div className='flex items-center border-b border-teal-500 py-2'>
         <input
-          className='appearance-none bg-transparent border-none w-full text-gray-700 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 mr-3 py-1 px-2 leading-tight focus:outline-none focus:ring-0'
+          className='appearance-none bg-transparent border-none w-full text-white placeholder-gray-400 mr-3 py-1 px-2 leading-tight focus:outline-none focus:ring-0'
           type='email'
           placeholder='Enter your email'
           aria-label='Email address'
