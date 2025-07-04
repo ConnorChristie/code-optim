@@ -1,0 +1,10 @@
+langgraph
+langchain
+langchain-openai
+pydantic
+redis
+prometheus-client
+opentelemetry-api
+opentelemetry-sdk
+opentelemetry-instrumentation
+python-dotenv
