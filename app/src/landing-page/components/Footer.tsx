@@ -23,7 +23,7 @@ export default function Footer({ footerNavigation }: {
         </h2>
         <div className='flex items-center justify-between'>
           <div className='flex items-center space-x-8'>
-            <Logo />
+            <Logo svgClassName='h-5 w-5' textClassName='text-base' />
           </div>
           <div className='flex items-center space-x-6'>
             <a href='#' className='text-gray-400 hover:text-gray-500'>
