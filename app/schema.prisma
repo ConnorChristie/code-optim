@@ -26,6 +26,7 @@ model User {
   contactFormMessages       ContactFormMessage[]
   tasks                     Task[]
   files                     File[]
+  repositories              Repository[]
 }
 
 model GptResponse {
@@ -257,28 +258,7 @@ model JobMetric {
   @@index([createdAt])
 }
 
-// User relation extension
-model User {
-  id                        String          @id @default(uuid())
-  createdAt                 DateTime        @default(now())
 
-  email                     String?         @unique
-  username                  String?         @unique
-  isAdmin                   Boolean         @default(false)
-
-  paymentProcessorUserId    String?         @unique
-  lemonSqueezyCustomerPortalUrl String?     
-  subscriptionStatus        String?         
-  subscriptionPlan          String?         
-  datePaid                  DateTime?
-  credits                   Int             @default(3)
-
-  gptResponses              GptResponse[]
-  contactFormMessages       ContactFormMessage[]
-  tasks                     Task[]
-  files                     File[]
-  repositories              Repository[]
-}
 
 // Enums
 enum JobStatus {
