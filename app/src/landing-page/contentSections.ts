@@ -37,7 +37,32 @@ export const features = [
   },
 ];
 
-export const testimonials = [];
+export const testimonials = [
+  {
+    body: 'Code Optima has been a game-changer for our team. We\'re shipping faster and our code is more performant than ever before. The AI-powered suggestions are incredibly accurate.',
+    author: {
+      name: 'Sarah, Lead Developer at Acme Inc.',
+      handle: 'sarah_dev',
+      imageUrl: avatarPlaceholder,
+    },
+  },
+  {
+    body: 'I was skeptical about AI-generated code, but Code Optima proved me wrong. The patches are clean, easy to understand, and have significantly improved our application\'s response times.',
+    author: {
+      name: 'Mike, CTO at Innovate LLC',
+      handle: 'mike_cto',
+      imageUrl: daBoiAvatar,
+    },
+  },
+  {
+    body: 'The GitHub integration is seamless. It fits right into our existing workflow and has saved us countless hours of manual performance tuning.',
+    author: {
+      name: 'Emily, Software Engineer at TechCorp',
+      handle: 'emily_swe',
+      imageUrl: avatarPlaceholder,
+    },
+  },
+];
 
 export const faqs = [
   {
@@ -53,7 +78,7 @@ export const faqs = [
   {
     id: 3,
     question: 'How much does it cost?',
-    answer: 'Pricing will be announced at launch. Join our waitlist to be notified and get early access pricing.',
+    answer: 'Code Optima offers a free plan for open-source projects and small teams. For larger teams and more advanced features, we have flexible pricing plans available on the GitHub Marketplace. Visit our marketplace page for more details.',
   },
   {
     id: 4,
@@ -66,9 +91,19 @@ export const footerNavigation = {
   app: [
     { name: 'Documentation', href: DocsUrl },
     { name: 'Blog', href: BlogUrl },
+    { name: 'Terms of Service', href: '#' },
   ],
   company: [
     { name: 'Privacy', href: '#' },
     { name: 'Terms of Service', href: '#' },
   ],
 };
+
+export const logoCloud = [
+  'Transistor',
+  'Tuple',
+  'Statamic',
+  'Reform',
+  'SavvyCal',
+  'Statamic',
+];

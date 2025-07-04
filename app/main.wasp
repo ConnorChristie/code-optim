@@ -101,6 +101,11 @@ page LandingPage {
   component: import LandingPage from "@src/landing-page/LandingPage"
 }
 
+route WaitlistThankYouRoute { path: "/waitlist-thank-you", to: WaitlistThankYouPage }
+page WaitlistThankYouPage {
+  component: import WaitlistThankYouPage from "@src/landing-page/WaitlistThankYouPage"
+}
+
 //#region Auth Pages
 route LoginRoute { path: "/login", to: LoginPage }
 page LoginPage {
@@ -143,6 +148,11 @@ query getPaginatedUsers {
 action updateIsUserAdminById {
   fn: import { updateIsUserAdminById } from "@src/user/operations",
   entities: [User]
+}
+
+action addToWaitlist {
+  fn: import { addToWaitlist } from "@src/waitlist/operations",
+  entities: [WaitlistEntry]
 }
 //#endregion
 

@@ -1,6 +1,6 @@
 import openSaasBannerWebp from '../../client/static/open-saas-banner.webp';
 import { DocsUrl } from '../../shared/common';
-import WaitlistForm from './WaitlistForm';
+import CTA from './CTA';
 
 export default function Hero() {
   return (
@@ -11,20 +11,12 @@ export default function Hero() {
         <div className='mx-auto max-w-8xl px-6 lg:px-8'>
           <div className='lg:mb-18 mx-auto max-w-3xl text-center'>
             <h1 className='text-4xl font-bold text-gray-900 sm:text-6xl dark:text-white'>
-              AI-Powered Code <span className='italic'>Performance</span> Optimization
+              Ship Faster, More Performant Code
             </h1>
             <p className='mt-6 mx-auto max-w-2xl text-lg leading-8 text-gray-600 dark:text-white'>
-              Code Optima automatically detects performance bottlenecks in your codebase and generates optimized patches using AI. Save engineering time and ship faster code.
+              Code Optima is an AI-powered GitHub extension that automatically finds and fixes performance bottlenecks in your code, so you can focus on building great features.
             </p>
-            <WaitlistForm />
-            <div className='mt-6'>
-              <a
-                href={DocsUrl}
-                className='text-sm font-semibold text-gray-700 hover:text-indigo-600 dark:text-white dark:hover:text-indigo-400'
-              >
-                Learn More <span aria-hidden='true'>→</span>
-              </a>
-            </div>
+            <CTA />
           </div>
         </div>
       </div>
