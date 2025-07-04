@@ -30,7 +30,7 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
         'shadow sticky': !isLandingPage,
       })}
     >
-      <nav className='max-w-7xl mx-auto flex items-center justify-between px-6 py-4 lg:px-8' aria-label='Global'>
+      <nav className='max-w-[90rem] mx-auto flex items-center justify-between px-6 py-4 lg:px-8' aria-label='Global'>
         <div className='flex items-center lg:flex-1'>
           <WaspRouterLink
             to={routes.LandingPageRoute.to}
