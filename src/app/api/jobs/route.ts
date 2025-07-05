@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
+import { prefectAPI, statusMap } from '@/lib/prefect';
 
 // Schema for job submission
 const CreateJobSchema = z.object({
@@ -105,47 +106,53 @@ const jobsAPI = new JobsAPI();
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    
-    // Parse query parameters
-    const queryParams = {
-      status: searchParams.get('status') || undefined,
-      limit: parseInt(searchParams.get('limit') || '100'),
-      page: parseInt(searchParams.get('page') || '1')
-    };
 
-    // Validate parameters
-    const validParams = ListJobsSchema.parse(queryParams);
+    const jobId = searchParams.get('job_id');
+    if (jobId) {
+      const [flowRun, state] = await Promise.all([
+        prefectAPI.getFlowRun(jobId),
+        prefectAPI.getFlowRunState(jobId)
+      ]);
 
-    // Fetch jobs from Python service
-    const jobs = await jobsAPI.listJobs(validParams.status, validParams.limit);
-
-    // Calculate pagination
-    const startIndex = (validParams.page - 1) * validParams.limit;
-    const endIndex = startIndex + validParams.limit;
-    const paginatedJobs = jobs.slice(startIndex, endIndex);
-
-    return NextResponse.json({
-      jobs: paginatedJobs,
-      pagination: {
-        page: validParams.page,
-        limit: validParams.limit,
-        total: jobs.length,
-        totalPages: Math.ceil(jobs.length / validParams.limit)
-      }
-    });
-
-  } catch (error) {
-    console.error('Error in GET /api/jobs:', error);
-    
-    if (error instanceof z.ZodError) {
-      return NextResponse.json(
-        { error: 'Invalid query parameters', details: error.errors },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        job_id: jobId,
+        status: state?.type ?? 'UNKNOWN',
+        result: state?.result ?? null,
+        flow_run: flowRun
+      });
     }
 
+    // Get pagination parameters
+    const limit = parseInt(searchParams.get('limit') || '100');
+    const page = parseInt(searchParams.get('page') || '1');
+    const offset = (page - 1) * limit;
+    const status = searchParams.get('status');
+
+    // Use POST method with filter for listing flow runs
+    const flowRuns = await prefectAPI.listFlowRuns(
+      status ? statusMap[status] : undefined,
+      limit,
+      offset
+    );
+
+    // Transform flow runs into jobs format
+    const jobs = flowRuns.map(run => ({
+      job_id: run.id,
+      repo_path: run.parameters?.repo_path || 'unknown',
+      status: Object.entries(statusMap).find(([_, v]) => v === run.state.type)?.[0] || 'unknown',
+      priority: run.parameters?.priority || 'normal',
+      config: run.parameters?.config || {},
+      result: run.state.result || null,
+      created_at: run.created,
+      updated_at: run.updated || run.created
+    }));
+
+    return NextResponse.json({ jobs });
+
+  } catch (error) {
+    console.error('Error in GET /api/jobs (Prefect version):', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error instanceof Error ? error.message : 'Unknown error occurred' },
       { status: 500 }
     );
   }
@@ -154,22 +161,23 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
-    // Validate request body
     const validatedData = CreateJobSchema.parse(body);
 
-    // Submit job to Python service
-    const jobId = await jobsAPI.submitJob(
+    const flowRunId = await prefectAPI.createFlowRun(
       validatedData.repo_path,
-      validatedData.priority,
-      validatedData.config
+      {
+        ...validatedData.config,
+        priority: validatedData.priority
+      }
     );
+
+    const state = await prefectAPI.getFlowRunState(flowRunId);
 
     return NextResponse.json(
       { 
-        job_id: jobId,
+        job_id: flowRunId,
         message: 'Job submitted successfully',
-        status: 'queued'
+        status: state?.type || 'SCHEDULED'
       },
       { status: 201 }
     );

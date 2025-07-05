@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Fragment } from "react"
 import {
   Table,
   TableBody,
@@ -237,46 +237,120 @@ export function HotspotsList() {
 
   // Fetch real hotspot data from the backend API once on mount
   useEffect(() => {
-    fetch('/api/hotspots?type=list&limit=50&page=1')
+    fetch('/api/jobs?limit=50&page=1')
       .then(res => res.json())
       .then(data => {
-        if (Array.isArray(data.hotspots)) {
-          const transformed = data.hotspots.map((h: any) => ({
-            id: h.id,
-            title: h.title ?? h.description?.slice(0, 60) ?? 'Hotspot',
-            progress: 0,
-            status: h.status === 'in_progress'
-              ? 'In Progress'
-              : h.status === 'completed'
-              ? 'Completed'
-              : 'Pending',
-            expectation: `${(h.impact ?? 0).toFixed(1)}% potential improvement`,
-            nextStep: h.suggestedFix ?? '',
-            description: h.description ?? '',
-            owner: h.owner ?? 'System',
-            startedAt: h.createdAt ? new Date(h.createdAt).toISOString().slice(0, 10) : '',
-            metrics: {
-              latencyImprovement: h.impact ?? 0,
-              costReduction: h.costReduction ?? 0,
-              memoryOptimization: 0,
-              cpuUtilization: 0,
-            },
-            timeline: [],
-            relatedFiles: [
+        if (Array.isArray(data.jobs)) {
+          const transformed = data.jobs.map((job: any) => {
+            // Calculate progress based on status
+            const progress = job.status === 'completed' ? 1 : 
+                           job.status === 'failed' || job.status === 'cancelled' ? 0 :
+                           job.status === 'running' ? job.progress_pct ? job.progress_pct / 100 : 0.5 :
+                           job.status === 'paused' ? job.progress_pct ? job.progress_pct / 100 : 0.25 : 0;
+
+            // Map job status to Investigation status
+            const status = job.status === 'completed' ? 'Completed' :
+                         job.status === 'failed' || job.status === 'cancelled' ? 'Cancelled' :
+                         job.status === 'running' ? 'In Progress' :
+                         job.status === 'paused' ? 'In Progress' : 'Pending';
+
+            // Format repository name for title
+            const repoName = job.repo_path.split('/').pop()?.replace(/\.git$/, '') || 'Unknown Repository';
+            
+            // Build timeline events based on job status and dates
+            const timeline = [
               {
-                path: h.filePath ?? 'unknown',
-                issues: 1,
-                improvement: h.impact ?? 0,
-              },
-            ],
-            recommendations: h.optimizations?.map((o: any) => o.description) ?? [],
-            risks: [],
-          })) as Investigation[]
-          setInvestigations(transformed)
+                date: new Date(job.created_at).toISOString().slice(0, 10),
+                event: 'Job Created',
+                impact: `Priority: ${job.priority}`
+              }
+            ];
+
+            if (job.started_at) {
+              timeline.push({
+                date: new Date(job.started_at).toISOString().slice(0, 10),
+                event: 'Processing Started',
+                impact: `Target: ${job.config?.target_improvement || 5}% improvement`
+              });
+            }
+
+            if (job.paused_at) {
+              timeline.push({
+                date: new Date(job.paused_at).toISOString().slice(0, 10),
+                event: 'Job Paused',
+                impact: job.status_message || 'Processing paused'
+              });
+            }
+
+            if (job.completed_at) {
+              timeline.push({
+                date: new Date(job.completed_at).toISOString().slice(0, 10),
+                event: job.status === 'completed' ? 'Job Completed' : 'Job Failed/Cancelled',
+                impact: job.status_message || (job.status === 'completed' ? 'Successfully optimized' : 'Processing stopped')
+              });
+            }
+
+            // Extract metrics from job results
+            const metrics = {
+              latencyImprovement: job.result?.latency_improvement || 0,
+              costReduction: job.result?.cost_reduction || 0,
+              memoryOptimization: job.result?.memory_optimization || 0,
+              cpuUtilization: job.result?.cpu_utilization || 0
+            };
+
+            // Format related files with improvements
+            const relatedFiles = job.result?.optimized_files?.map((file: string) => ({
+              path: file,
+              issues: job.result?.issues_found?.[file] || 1,
+              improvement: job.result?.file_improvements?.[file] || job.config?.target_improvement || 0
+            })) || [];
+
+            // Extract recommendations and risks
+            const recommendations = job.result?.recommendations || [
+              'Analyzing code patterns',
+              'Identifying optimization opportunities',
+              'Evaluating performance impact'
+            ];
+
+            const risks = job.result?.risks || [
+              'Changes may require thorough testing',
+              'Performance impact may vary by environment',
+              'Some optimizations may affect readability'
+            ];
+
+            return {
+              id: job.job_id,
+              title: `Optimize ${repoName}`,
+              progress,
+              status,
+              expectation: job.config?.target_improvement 
+                ? `Target ${job.config.target_improvement}% improvement`
+                : 'Optimizing performance',
+              nextStep: job.status === 'completed' ? 'Review results' :
+                       job.status === 'failed' ? 'Investigate failure' :
+                       job.status === 'cancelled' ? 'Cancelled' :
+                       job.status === 'running' ? job.status_message || 'Processing optimizations' :
+                       job.status === 'paused' ? 'Resume processing' : 'Waiting to start',
+              description: `Optimizing repository ${job.repo_path} with ${job.priority} priority. ${job.status_message || ''}`,
+              owner: job.current_agent || 'System',
+              startedAt: job.started_at ? new Date(job.started_at).toISOString().slice(0, 10) : 
+                        new Date(job.created_at).toISOString().slice(0, 10),
+              metrics,
+              timeline,
+              relatedFiles,
+              recommendations,
+              risks
+            } as Investigation;
+          });
+          setInvestigations(transformed);
         }
       })
-      .catch((err) => console.error('Failed to fetch hotspots', err))
-  }, [])
+      .catch((err) => {
+        console.error('Failed to fetch jobs', err);
+        // Fallback to mock data on error
+        setInvestigations(mockInvestigations);
+      });
+  }, []);
 
   const toggleExpand = (id: string) => {
     setExpandedIds(prev => {
@@ -304,7 +378,7 @@ export function HotspotsList() {
         </TableHeader>
         <TableBody>
           {(investigations.length ? investigations : mockInvestigations).map((inv) => (
-            <>
+            <Fragment key={inv.id}>
               <TableRow
                 key={inv.id}
                 onClick={() => toggleExpand(inv.id)}
@@ -428,7 +502,7 @@ export function HotspotsList() {
                   </TableCell>
                 </TableRow>
               )}
-            </>
+            </Fragment>
           ))}
         </TableBody>
       </Table>
