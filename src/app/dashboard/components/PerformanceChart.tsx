@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
   ChartData,
+  ChartOptions,
 } from 'chart.js'
 
 ChartJS.register(
@@ -23,12 +24,43 @@ ChartJS.register(
   Legend
 )
 
-const options = {
+const options: ChartOptions<'line'> = {
   responsive: true,
   maintainAspectRatio: false,
+  interaction: {
+    mode: 'index',
+    intersect: false,
+  },
   plugins: {
     legend: {
       position: 'top' as const,
+      labels: {
+        color: '#e5e7eb',
+        padding: 20,
+        usePointStyle: true,
+        pointStyle: 'circle',
+      },
+    },
+    tooltip: {
+      backgroundColor: 'rgba(17, 24, 39, 0.95)',
+      borderColor: 'rgba(99, 102, 241, 0.2)',
+      borderWidth: 1,
+      titleColor: '#e5e7eb',
+      bodyColor: '#9ca3af',
+      cornerRadius: 8,
+      padding: 12,
+      callbacks: {
+        label: function(context) {
+          let label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          if (context.parsed.y !== null) {
+            label += '+' + context.parsed.y.toFixed(1) + '%';
+          }
+          return label;
+        }
+      }
     },
   },
   scales: {
@@ -37,6 +69,24 @@ const options = {
       title: {
         display: true,
         text: 'Performance Improvement (%)',
+        color: '#9ca3af',
+      },
+      ticks: {
+        color: '#9ca3af',
+        callback: function(value) {
+          return value + '%';
+        }
+      },
+      grid: {
+        color: 'rgba(255,255,255,0.05)',
+      },
+    },
+    x: {
+      ticks: {
+        color: '#9ca3af',
+      },
+      grid: {
+        color: 'rgba(255,255,255,0.05)',
       },
     },
   },
@@ -50,14 +100,26 @@ const data: ChartData<'line'> = {
     {
       label: 'Overall Performance',
       data: [0, 5, 8, 15, 20, 22, 24.3],
-      borderColor: 'rgb(75, 192, 192)',
-      backgroundColor: 'rgba(75, 192, 192, 0.5)',
+      borderColor: 'rgb(99, 102, 241)',
+      backgroundColor: 'rgba(99, 102, 241, 0.1)',
+      tension: 0.4,
+      fill: true,
     },
     {
-      label: 'Memory Usage',
+      label: 'Memory Optimization',
       data: [0, 3, 10, 12, 18, 20, 22],
-      borderColor: 'rgb(53, 162, 235)',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      borderColor: 'rgb(16, 185, 129)',
+      backgroundColor: 'rgba(16, 185, 129, 0.1)',
+      tension: 0.4,
+      fill: true,
+    },
+    {
+      label: 'CPU Efficiency',
+      data: [0, 2, 5, 8, 12, 15, 18],
+      borderColor: 'rgb(251, 146, 60)',
+      backgroundColor: 'rgba(251, 146, 60, 0.1)',
+      tension: 0.4,
+      fill: true,
     },
   ],
 }

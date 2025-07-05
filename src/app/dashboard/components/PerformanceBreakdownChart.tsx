@@ -9,9 +9,10 @@ import {
   ChartData,
   ChartOptions,
 } from 'chart.js'
+import ChartDataLabels from 'chartjs-plugin-datalabels'
 import React from 'react'
 
-ChartJS.register(ArcElement, Tooltip, Legend)
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels)
 
 type HotspotData = {
   percentage: number
@@ -66,22 +67,22 @@ const data: ChartData<'pie'> = {
       label: 'Hotspot Distribution',
       data: Object.values(hotspotData).map(d => d.percentage),
       backgroundColor: [
-        'rgba(99, 102, 241, 0.7)', // indigo-500
-        'rgba(16, 185, 129, 0.7)', // emerald-500
-        'rgba(239, 68, 68, 0.7)', // red-500
-        'rgba(34, 197, 94, 0.7)', // green-500
-        'rgba(234, 179, 8, 0.7)', // yellow-500
-        'rgba(59, 130, 246, 0.7)', // blue-500
+        'rgba(99, 102, 241, 0.8)', // indigo-500
+        'rgba(16, 185, 129, 0.8)', // emerald-500
+        'rgba(251, 146, 60, 0.8)', // orange-400
+        'rgba(59, 130, 246, 0.8)', // blue-500
+        'rgba(236, 72, 153, 0.8)', // pink-500
+        'rgba(20, 184, 166, 0.8)', // teal-500
       ],
       borderColor: [
         'rgba(99, 102, 241, 1)',
         'rgba(16, 185, 129, 1)',
-        'rgba(239, 68, 68, 1)',
-        'rgba(34, 197, 94, 1)',
-        'rgba(234, 179, 8, 1)',
+        'rgba(251, 146, 60, 1)',
         'rgba(59, 130, 246, 1)',
+        'rgba(236, 72, 153, 1)',
+        'rgba(20, 184, 166, 1)',
       ],
-      borderWidth: 1,
+      borderWidth: 2,
     },
   ],
 }
@@ -89,17 +90,43 @@ const data: ChartData<'pie'> = {
 const options: ChartOptions<'pie'> = {
   responsive: true,
   maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 60,
+      right: 60,
+      bottom: 60,
+      left: 60,
+    },
+  },
   plugins: {
     legend: {
-      position: 'bottom',
-      labels: {
-        color: '#e5e7eb',
-        padding: 16,
-        font: {
-          size: 12,
-        },
-        usePointStyle: true,
-        pointStyle: 'circle',
+      display: false,
+    },
+    datalabels: {
+      display: true,
+      color: '#e5e7eb',
+      font: {
+        size: 12,
+        weight: 600,
+      },
+      formatter: (value: number, ctx: any) => {
+        const label = ctx.chart.data.labels[ctx.dataIndex];
+        return `${label}\n${value}%`;
+      },
+      anchor: 'end',
+      align: 'end',
+      offset: 10,
+      clip: false,
+      textAlign: 'center',
+      backgroundColor: 'rgba(17, 24, 39, 0.9)',
+      borderColor: 'rgba(99, 102, 241, 0.3)',
+      borderRadius: 6,
+      borderWidth: 1,
+      padding: {
+        top: 6,
+        right: 10,
+        bottom: 6,
+        left: 10,
       },
     },
     tooltip: {
@@ -107,8 +134,9 @@ const options: ChartOptions<'pie'> = {
         label: (ctx) => {
           const hotspot = hotspotData[ctx.label]
           return [
-            `Savings: ${hotspot.potentialSavings}`,
-            `Cost to optimize: ${hotspot.costPerMonth}`,
+            `${ctx.label}: ${hotspot.percentage}%`,
+            `Time: ${hotspot.timeSpent}`,
+            `Potential: ${hotspot.potentialSavings}`,
           ]
         },
       },
@@ -140,6 +168,13 @@ const options: ChartOptions<'pie'> = {
       borderWidth: 2,
       borderColor: '#111827',
     },
+  },
+  onHover: (_event, activeElements) => {
+    // Set cursor to pointer when hovering over pie slices
+    const chartElement = _event?.native?.target as HTMLElement
+    if (chartElement) {
+      chartElement.style.cursor = activeElements.length > 0 ? 'pointer' : 'default'
+    }
   },
 }
 
@@ -223,61 +258,242 @@ elements.forEach(el => {
   },
 }
 
-export function PerformanceBreakdownChart() {
+interface PerformanceBreakdownChartProps {
+  isExpanded?: boolean
+  onExpandChange?: (expanded: boolean) => void
+}
+
+export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }: PerformanceBreakdownChartProps) {
   const chartRef = React.useRef<any>(null)
   const [selectedSegment, setSelectedSegment] = React.useState<string | null>(null)
+  const [showDetails, setShowDetails] = React.useState(false)
+  const [showExpandedView, setShowExpandedView] = React.useState(false)
+
+  // Handle animations timing
+  React.useEffect(() => {
+    if (isExpanded && selectedSegment) {
+      // Delay showing expanded view to sync with container animation
+      const expandTimer = setTimeout(() => {
+        setShowExpandedView(true)
+      }, 150)
+      // Delay showing details for smooth transition
+      const detailsTimer = setTimeout(() => {
+        setShowDetails(true)
+      }, 300)
+      return () => {
+        clearTimeout(expandTimer)
+        clearTimeout(detailsTimer)
+      }
+    } else {
+      setShowDetails(false)
+      setShowExpandedView(false)
+    }
+  }, [isExpanded, selectedSegment])
 
   const handleClick = (_event: unknown, elements: { index: number }[]) => {
-    if (!elements || elements.length === 0) return
+    if (!elements || elements.length === 0) {
+      setSelectedSegment(null)
+      onExpandChange?.(false)
+      return
+    }
     const { index } = elements[0]
     const label = data.labels?.[index] as string
     setSelectedSegment(label)
+    onExpandChange?.(true)
   }
 
-  return (
-    <div className="w-full relative flex flex-row items-start gap-4">
-      <div className="w-64 h-64 cursor-pointer">
-        <Pie
-          ref={chartRef}
-          data={data}
-          options={{
-            ...options,
-            onClick: handleClick as unknown as ChartOptions<'pie'>['onClick'],
-          }}
-        />
-      </div>
-      {selectedSegment && (
-        <div 
-          className="flex-1 rounded-lg bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500/50 p-4 
-          transition-all duration-500 space-y-3 text-sm overflow-auto max-h-[400px] animate-in fade-in zoom-in-95 
-          slide-in-from-right-8 duration-700 ease-out"
-        >
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <h4 className="font-medium text-gray-200">{selectedSegment} Hotspot</h4>
-              <div className="text-sm font-semibold text-red-400">Critical</div>
-            </div>
-            <p className="text-gray-400">{segmentDetails[selectedSegment].summary}</p>
+  const handleClose = () => {
+    setShowDetails(false)
+    // Delay closing to allow animation
+    setTimeout(() => {
+      setShowExpandedView(false)
+      setSelectedSegment(null)
+      onExpandChange?.(false)
+    }, 300)
+  }
+
+  // If expanded and a segment is selected, show split pane view
+  if (showExpandedView && selectedSegment) {
+    return (
+      <div className="flex h-[600px] pr-6 gap-0 relative overflow-hidden animate-fade-in">
+        {/* Left side - Chart without animation */}
+        <div className="flex-1 flex items-center justify-center min-w-0">
+          <div className="w-full h-full max-w-[500px] max-h-[500px] p-4">
+            <Pie
+              ref={chartRef}
+              data={data}
+              options={{
+                ...options,
+                onClick: handleClick as unknown as ChartOptions<'pie'>['onClick'],
+                layout: {
+                  padding: {
+                    top: 80,
+                    right: 80,
+                    bottom: 80,
+                    left: 80,
+                  },
+                },
+              }}
+            />
           </div>
-
-          <table className="w-full text-left text-xs table-auto border-collapse mt-4">
-            <tbody>
-              {segmentDetails[selectedSegment].metrics.map((m) => (
-                <tr key={m.name} className="border-t border-gray-800">
-                  <td className="py-2 pr-4 text-gray-500 whitespace-nowrap">{m.name}</td>
-                  <td className="py-2 text-gray-300">{m.value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          {segmentDetails[selectedSegment].code && (
-            <pre className="bg-gray-950/50 rounded p-3 text-[11px] overflow-x-auto whitespace-pre text-gray-300">
-{segmentDetails[selectedSegment].code}
-            </pre>
-          )}
         </div>
-      )}
+        
+        {/* Right side - Details with fixed animation */}
+        <div className="flex-1 relative min-w-0">
+          <div 
+            className={`
+              absolute inset-0 bg-gray-900/50 rounded-lg border border-gray-800 p-6 overflow-y-auto
+              transition-all duration-500 ease-out
+              ${showDetails 
+                ? 'opacity-100 scale-100' 
+                : 'opacity-0 scale-95'
+              }
+            `}
+          >
+            <div className="space-y-4">
+              {/* Header with fade-in */}
+              <div 
+                className={`
+                  flex items-center justify-between
+                  transition-all duration-500 delay-100
+                  ${showDetails ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
+                `}
+              >
+                <div className="space-y-1">
+                  <h3 className="text-xl font-semibold text-gray-200">{selectedSegment} Analysis</h3>
+                  <p className="text-sm text-gray-400">{segmentDetails[selectedSegment].summary}</p>
+                </div>
+                <button 
+                  onClick={handleClose}
+                  className="text-gray-400 hover:text-gray-200 transition-all p-2 hover:bg-gray-800 rounded-lg hover:scale-110 cursor-pointer"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+              
+              {/* Metrics Grid with staggered animation */}
+              <div className="grid grid-cols-3 gap-3">
+                {segmentDetails[selectedSegment].metrics.map((metric, index) => (
+                  <div 
+                    key={metric.name} 
+                    className={`
+                      bg-gray-800/50 rounded-lg p-3
+                      transition-all duration-500
+                      ${showDetails 
+                        ? 'opacity-100 translate-y-0' 
+                        : 'opacity-0 translate-y-8'
+                      }
+                    `}
+                    style={{
+                      transitionDelay: showDetails ? `${200 + index * 50}ms` : '0ms'
+                    }}
+                  >
+                    <div className="text-xs text-gray-400">{metric.name}</div>
+                    <div className="text-base font-semibold text-gray-200 mt-1">{metric.value}</div>
+                  </div>
+                ))}
+              </div>
+              
+              {/* Code Sample with slide-up animation */}
+              {segmentDetails[selectedSegment].code && (
+                <div 
+                  className={`
+                    space-y-2
+                    transition-all duration-500 delay-300
+                    ${showDetails ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                  `}
+                >
+                  <h4 className="text-sm font-medium text-gray-300">Example Code</h4>
+                  <pre className="bg-gray-950/50 rounded-lg p-4 text-sm overflow-x-auto whitespace-pre text-gray-300 border border-gray-800">
+{segmentDetails[selectedSegment].code}
+                  </pre>
+                </div>
+              )}
+              
+              {/* Recommendations with staggered fade-in */}
+              <div 
+                className={`
+                  space-y-2
+                  transition-all duration-500 delay-400
+                  ${showDetails ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                `}
+              >
+                <h4 className="text-sm font-medium text-gray-300">Optimization Recommendations</h4>
+                <div className="bg-gray-800/50 rounded-lg p-4 space-y-2">
+                  {[
+                    'Implement caching strategies to reduce repeated computations',
+                    'Consider using worker threads for CPU-intensive operations',
+                    'Profile and optimize the identified bottlenecks'
+                  ].map((recommendation, index) => (
+                    <div 
+                      key={index}
+                      className={`
+                        flex items-start space-x-2
+                        transition-all duration-300
+                        ${showDetails ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}
+                      `}
+                      style={{
+                        transitionDelay: showDetails ? `${500 + index * 50}ms` : '0ms'
+                      }}
+                    >
+                      <span className="text-green-400">•</span>
+                      <p className="text-sm text-gray-300 mt-0.5">{recommendation}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Default compact view without animation
+  return (
+    <div className={`w-full h-[400px] relative ${selectedSegment ? 'animate-fade-out' : ''}`}>
+      <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="w-full h-full max-w-[400px] max-h-[400px]">
+          <Pie
+            ref={chartRef}
+            data={data}
+            options={{
+              ...options,
+              onClick: handleClick as unknown as ChartOptions<'pie'>['onClick'],
+            }}
+          />
+        </div>
+      </div>
+      
+      <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        
+        @keyframes fade-out {
+          from {
+            opacity: 1;
+          }
+          to {
+            opacity: 0;
+          }
+        }
+        
+        .animate-fade-in {
+          animation: fade-in 0.3s ease-out;
+        }
+        
+        .animate-fade-out {
+          animation: fade-out 0.2s ease-out;
+        }
+      `}</style>
     </div>
   )
 } 

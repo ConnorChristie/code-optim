@@ -27,11 +27,18 @@ ChartJS.register(
 const options: ChartOptions<'line'> = {
   responsive: true,
   maintainAspectRatio: false,
+  interaction: {
+    mode: 'index',
+    intersect: false,
+  },
   plugins: {
     legend: {
       position: 'top',
       labels: {
         color: '#e5e7eb',
+        padding: 20,
+        usePointStyle: true,
+        pointStyle: 'circle',
       },
     },
     tooltip: {
@@ -41,22 +48,63 @@ const options: ChartOptions<'line'> = {
       titleColor: '#e5e7eb',
       bodyColor: '#9ca3af',
       cornerRadius: 8,
+      padding: 12,
+      callbacks: {
+        label: function(context) {
+          let label = context.dataset.label || '';
+          if (label) {
+            label += ': ';
+          }
+          if (context.parsed.y !== null) {
+            if (context.datasetIndex === 0) {
+              label += '$' + context.parsed.y.toFixed(0);
+            } else {
+              label += context.parsed.y.toFixed(1) + ' kg';
+            }
+          }
+          return label;
+        }
+      }
     },
   },
   scales: {
     y: {
       type: 'linear',
+      display: true,
       position: 'left',
       title: {
         display: true,
-        text: 'Amplitude',
-        color: '#a78bfa',
+        text: 'Monthly Cost ($)',
+        color: '#10b981',
       },
       ticks: {
-        color: '#a78bfa',
+        color: '#10b981',
+        callback: function(value) {
+          return '$' + value;
+        }
       },
       grid: {
-        color: 'rgba(167, 139, 250, 0.1)',
+        color: 'rgba(16, 185, 129, 0.1)',
+      },
+    },
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+      title: {
+        display: true,
+        text: 'CO₂ Emissions (kg)',
+        color: '#3b82f6',
+      },
+      ticks: {
+        color: '#3b82f6',
+        callback: function(value) {
+          return value + ' kg';
+        }
+      },
+      grid: {
+        drawOnChartArea: false,
+        color: 'rgba(59, 130, 246, 0.1)',
       },
     },
     x: {
@@ -70,23 +118,33 @@ const options: ChartOptions<'line'> = {
   },
 }
 
-// Generate a simple sine wave for demonstration
-const POINTS = 100
-const labels = Array.from({ length: POINTS }, (_, i) => i.toString())
-const sineWave = Array.from({ length: POINTS }, (_, i) =>
-  Math.sin((i / POINTS) * 4 * Math.PI)
-)
+// Monthly data for the last 12 months
+const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+// Mock data showing cost reduction and carbon impact over time
+const costData = [3200, 3150, 3000, 2800, 2650, 2500, 2400, 2300, 2200, 2100, 2000, 1950]
+const carbonData = [450, 440, 420, 390, 370, 350, 335, 325, 315, 305, 295, 285]
 
 const data: ChartData<'line'> = {
   labels,
   datasets: [
     {
-      label: 'Sine Wave',
-      data: sineWave,
-      borderColor: 'rgb(99, 102, 241)',
-      backgroundColor: 'rgba(99, 102, 241, 0.4)',
+      label: 'Monthly Cloud Cost',
+      data: costData,
+      borderColor: 'rgb(16, 185, 129)',
+      backgroundColor: 'rgba(16, 185, 129, 0.1)',
       tension: 0.4,
       fill: true,
+      yAxisID: 'y',
+    },
+    {
+      label: 'CO₂ Emissions',
+      data: carbonData,
+      borderColor: 'rgb(59, 130, 246)',
+      backgroundColor: 'rgba(59, 130, 246, 0.1)',
+      tension: 0.4,
+      fill: true,
+      yAxisID: 'y1',
     },
   ],
 }
