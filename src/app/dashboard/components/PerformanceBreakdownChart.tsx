@@ -1,6 +1,6 @@
 'use client'
 
-import { Pie } from 'react-chartjs-2'
+import { Doughnut } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   ArcElement,
@@ -60,34 +60,47 @@ const hotspotData: Record<string, HotspotData> = {
   },
 }
 
-const data: ChartData<'pie'> = {
-  labels: ['CPU', 'Memory', 'I/O', 'Database', 'Network', 'Rendering'],
-  datasets: [
-    {
-      label: 'Hotspot Distribution',
-      data: Object.values(hotspotData).map(d => d.percentage),
-      backgroundColor: [
-        'rgba(99, 102, 241, 0.8)', // indigo-500
-        'rgba(16, 185, 129, 0.8)', // emerald-500
-        'rgba(251, 146, 60, 0.8)', // orange-400
-        'rgba(59, 130, 246, 0.8)', // blue-500
-        'rgba(236, 72, 153, 0.8)', // pink-500
-        'rgba(20, 184, 166, 0.8)', // teal-500
-      ],
-      borderColor: [
-        'rgba(99, 102, 241, 1)',
-        'rgba(16, 185, 129, 1)',
-        'rgba(251, 146, 60, 1)',
-        'rgba(59, 130, 246, 1)',
-        'rgba(236, 72, 153, 1)',
-        'rgba(20, 184, 166, 1)',
-      ],
-      borderWidth: 2,
-    },
-  ],
-}
+const getPieData = (selectedSegment: string | null) => {
+  const baseColors = [
+    'rgba(99, 102, 241, 0.85)',  // indigo-500
+    'rgba(139, 92, 246, 0.85)', // violet-500
+    'rgba(59, 130, 246, 0.85)', // blue-500
+    'rgba(14, 165, 233, 0.85)', // sky-500
+    'rgba(20, 184, 166, 0.85)', // teal-500
+    'rgba(244, 114, 182, 0.85)', // pink-400
+  ];
+  return {
+    labels: ['CPU', 'Memory', 'I/O', 'Database', 'Network', 'Rendering'],
+    datasets: [
+      {
+        label: 'Hotspot Distribution',
+        data: Object.values(hotspotData).map(d => d.percentage),
+        backgroundColor: baseColors,
+        borderWidth: 0,
+        hoverOffset: 8,
+        offset: Object.values(hotspotData).map((_, idx) => {
+          const label = ['CPU', 'Memory', 'I/O', 'Database', 'Network', 'Rendering'][idx];
+          return selectedSegment === label ? 18 : 0;
+        }),
+        borderRadius: 8,
+        spacing: 10,
+        segment: {
+          borderWidth: 0,
+          borderColor: 'transparent',
+          backgroundColor: (ctx: any) => {
+            const label = ctx.chart.data.labels[ctx.dataIndex];
+            if (selectedSegment === label) {
+              return baseColors[ctx.dataIndex];
+            }
+            return baseColors[ctx.dataIndex];
+          },
+        },
+      },
+    ],
+  };
+};
 
-const options: ChartOptions<'pie'> = {
+const options: ChartOptions<'doughnut'> = {
   responsive: true,
   maintainAspectRatio: false,
   layout: {
@@ -176,6 +189,7 @@ const options: ChartOptions<'pie'> = {
       chartElement.style.cursor = activeElements.length > 0 ? 'pointer' : 'default'
     }
   },
+  cutout: '60%',
 }
 
 type MetricItem = { name: string; value: string }
@@ -297,7 +311,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
       return
     }
     const { index } = elements[0]
-    const label = data.labels?.[index] as string
+    const label = getPieData(selectedSegment).labels?.[index] as string
     setSelectedSegment(label)
     onExpandChange?.(true)
   }
@@ -319,12 +333,12 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
         {/* Left side - Chart without animation */}
         <div className="flex-1 flex items-center justify-center min-w-0">
           <div className="w-full h-full max-w-[500px] max-h-[500px] p-4">
-            <Pie
+            <Doughnut
               ref={chartRef}
-              data={data}
+              data={getPieData(selectedSegment)}
               options={{
                 ...options,
-                onClick: handleClick as unknown as ChartOptions<'pie'>['onClick'],
+                onClick: handleClick as unknown as ChartOptions<'doughnut'>['onClick'],
                 layout: {
                   padding: {
                     top: 80,
@@ -456,12 +470,12 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
     <div className={`w-full h-[400px] relative ${selectedSegment ? 'animate-fade-out' : ''}`}>
       <div className="absolute inset-0 flex items-center justify-center p-4">
         <div className="w-full h-full max-w-[400px] max-h-[400px]">
-          <Pie
+          <Doughnut
             ref={chartRef}
-            data={data}
+            data={getPieData(selectedSegment)}
             options={{
               ...options,
-              onClick: handleClick as unknown as ChartOptions<'pie'>['onClick'],
+              onClick: handleClick as unknown as ChartOptions<'doughnut'>['onClick'],
             }}
           />
         </div>
