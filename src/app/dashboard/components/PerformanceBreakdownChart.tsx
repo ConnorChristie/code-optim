@@ -343,7 +343,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
           <div 
             className={`
               absolute inset-0 bg-gray-900/50 rounded-lg border border-gray-800 p-6 overflow-y-auto
-              transition-all duration-500 ease-out
+              transition-all duration-200 ease-out
               ${showDetails 
                 ? 'opacity-100 scale-100' 
                 : 'opacity-0 scale-95'
@@ -355,7 +355,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
               <div 
                 className={`
                   flex items-center justify-between
-                  transition-all duration-500 delay-100
+                  transition-all duration-200 delay-100
                   ${showDetails ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}
                 `}
               >
@@ -380,7 +380,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
                     key={metric.name} 
                     className={`
                       bg-gray-800/50 rounded-lg p-3
-                      transition-all duration-500
+                      transition-all duration-200
                       ${showDetails 
                         ? 'opacity-100 translate-y-0' 
                         : 'opacity-0 translate-y-8'
@@ -401,7 +401,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
                 <div 
                   className={`
                     space-y-2
-                    transition-all duration-500 delay-300
+                    transition-all duration-200 delay-300
                     ${showDetails ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                   `}
                 >
@@ -416,7 +416,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
               <div 
                 className={`
                   space-y-2
-                  transition-all duration-500 delay-400
+                  transition-all duration-200 delay-400
                   ${showDetails ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
                 `}
               >
@@ -431,7 +431,7 @@ export function PerformanceBreakdownChart({ isExpanded = false, onExpandChange }
                       key={index}
                       className={`
                         flex items-start space-x-2
-                        transition-all duration-300
+                        transition-all duration-200
                         ${showDetails ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}
                       `}
                       style={{

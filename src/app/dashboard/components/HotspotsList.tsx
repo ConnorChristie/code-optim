@@ -161,7 +161,7 @@ const mockInvestigations: Investigation[] = [
   {
     id: '3',
     title: 'Cache external API responses',
-    progress: 0.9,
+    progress: 1,
     status: 'Completed',
     expectation: 'Reduce API spend by $150/month',
     nextStep: 'Monitor cache hit rate over next week',
