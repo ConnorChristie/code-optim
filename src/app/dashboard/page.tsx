@@ -428,7 +428,7 @@ export default function DashboardPage() {
               <CardContent>
                 <div className="text-2xl font-bold text-yellow-400">$1.83</div>
                 <p className="text-xs text-gray-400">
-                  Today's LLM cost
+                  Today&apos;s LLM cost
                 </p>
               </CardContent>
             </Card>

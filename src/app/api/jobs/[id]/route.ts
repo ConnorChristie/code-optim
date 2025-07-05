@@ -78,10 +78,10 @@ const jobAPI = new JobAPI();
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const jobId = params.id;
+    const jobId = (await params).id;
 
     if (!jobId) {
       return NextResponse.json(
@@ -114,10 +114,10 @@ export async function GET(
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const jobId = params.id;
+    const jobId = (await params).id;
 
     if (!jobId) {
       return NextResponse.json(
@@ -191,10 +191,10 @@ export async function POST(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const jobId = params.id;
+    const jobId = (await params).id;
 
     if (!jobId) {
       return NextResponse.json(
