@@ -148,8 +148,7 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../../.env",
-    "schemaEnvPath": "../../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../../prisma",
   "clientVersion": "6.11.1",
@@ -158,7 +157,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -168,8 +167,8 @@ const config = {
     }
   },
   "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/app/generated/prisma-client\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"PRISMA_DATABASE_URL\")\n}\n\nmodel WaitlistEntry {\n  id        String   @id @default(cuid())\n  email     String   @unique\n  githubUrl String?\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  @@index([email])\n}\n",
-  "inlineSchemaHash": "7fff34c7fae419d8c334f174cfe6e77cbd2165d104b92c00147b0f5a41db1974",
-  "copyEngine": false
+  "inlineSchemaHash": "7ca2d7aa2982c390b6808290ae8965b8e35ce071c550a87a62e0338e040f3f0f",
+  "copyEngine": true
 }
 config.dirname = '/'
 

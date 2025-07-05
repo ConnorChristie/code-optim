@@ -33,9 +33,10 @@ function App({ children }: { children: React.ReactNode }) {
       <div className='fixed top-0 left-0 w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[160px] -translate-x-1/2 -translate-y-1/2 pointer-events-none'></div>
       <div className='fixed top-0 right-0 w-[600px] h-[600px] bg-blue-500/20 rounded-full blur-[160px] translate-x-1/2 -translate-y-1/2 pointer-events-none'></div>
 
+      <AppNavBar navigationItems={navigationItems} />
+
       {/* Content */}
-      <div className='relative flex min-h-screen flex-col'>
-        <AppNavBar navigationItems={navigationItems} />
+      <div className='relative flex flex-col max-w-[90rem] mx-auto'>
         {children}
       </div>
     </div>

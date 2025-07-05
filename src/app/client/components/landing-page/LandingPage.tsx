@@ -6,7 +6,7 @@ import Waitlist from './components/Waitlist';
 export default function LandingPage() {
   return (
     <div className='w-full text-white'>
-      <div className='mx-auto max-w-[90rem]'>
+      <div className='mx-auto'>
         <div className='pt-6 sm:pt-10'>
           <div className='py-12 sm:py-16'>
             <div className='mx-auto px-4 sm:px-6 lg:px-8'>
