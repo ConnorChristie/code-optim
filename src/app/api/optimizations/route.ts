@@ -1,11 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
+// Force Node.js runtime so we can use the Redis client
+export const runtime = 'nodejs'
+
 import { prisma } from '@/lib/db'
-import { 
-  OptimizationSummaryResponseSchema,
-  OptimizationsQuerySchema,
-  OptimizationRequest,
-  OptimizationJobResponseSchema 
-} from '@/lib/types'
+import { z } from 'zod'
+import { OptimizationSummaryResponseSchema, OptimizationsQuerySchema } from '@/lib/types'
+import { createClient, RedisClientType } from 'redis'
+
+const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379'
+
+// Lazily create a singleton redis client to appease type-checker & hot reloads
+let redis: RedisClientType | null = null
+function getRedis(): RedisClientType {
+  if (!redis) {
+    redis = createClient({ url: redisUrl }) as RedisClientType
+    redis.on('error', (err) => console.error('Redis error', err))
+    redis.connect().catch(console.error)
+  }
+  return redis
+}
+
+const CreateOptimizationSchema = z.object({
+  githubUrl: z.string().url('A valid GitHub URL is required')
+})
 
 // GET /api/optimizations?type=summary
 // GET /api/optimizations?type=history&page=1&limit=10
@@ -41,29 +58,64 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { repoUrl, config } = body as OptimizationRequest
-    
-    // Create optimization job
-    const jobId = `job_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
-    
-    const optimizationRun = await prisma.optimizationRun.create({
-      data: {
-        jobId,
-        repoUrl,
-        status: 'pending'
-      }
-    })
-    
-    // Queue the job (this would typically publish to Redis)
-    // For now, we'll just return the job ID
-    
-    const response = OptimizationJobResponseSchema.parse({
-      jobId,
-      status: 'pending',
-      message: 'Optimization job queued successfully'
-    })
-    
-    return NextResponse.json(response, { status: 201 })
+
+    // Validate body
+    const { githubUrl } = CreateOptimizationSchema.parse(body)
+
+    // Build job object compatible with Python QueueProcessor
+    const jobId = `job_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`
+
+    const job = {
+      job_id: jobId,
+      repo_path: githubUrl,
+      status: 'queued',
+      priority: 'normal',
+      config: {
+        max_cost: 10.0,
+        max_time: 7200,
+        max_iterations: 5,
+        target_improvement: 5.0,
+        enable_monitoring: true,
+        auto_pause_on_error: true
+      },
+      metrics: {
+        cost_used: 0.0,
+        time_used: 0.0,
+        improvement_pct: 0.0,
+        iterations: 0,
+        files_processed: 0,
+        hotspots_found: 0,
+        optimizations_applied: 0
+      },
+      created_at: new Date().toISOString(),
+      started_at: null,
+      completed_at: null,
+      paused_at: null,
+      error_message: null,
+      retry_count: 0,
+      max_retries: 3,
+      current_agent: null,
+      progress_pct: 0.0,
+      status_message: '',
+      results: {},
+      logs: [],
+      runtime: null
+    }
+
+    // Store job details and enqueue
+    const r = getRedis()
+    await r.hSet('optimization_jobs', jobId, JSON.stringify(job))
+    await r.lPush('optimization_queue', jobId)
+    await r.publish('job_status_updates', JSON.stringify({
+      job_id: jobId,
+      status: 'queued',
+      progress_pct: 0,
+      status_message: 'Job queued',
+      metrics: job.metrics,
+      timestamp: new Date().toISOString()
+    }))
+
+    return NextResponse.json({ jobId, status: 'queued', message: 'Optimization started' }, { status: 201 })
   } catch (error) {
     console.error('Error creating optimization job:', error)
     return NextResponse.json(
