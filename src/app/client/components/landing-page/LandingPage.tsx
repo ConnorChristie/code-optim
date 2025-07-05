@@ -1,6 +1,6 @@
 import { footerNavigation } from './contentSections';
 import Footer from './components/Footer';
-import Logo from '../client/components/Logo';
+import Logo from '../Logo';
 import { ThoughtBubbles } from './components/ThoughtBubbles';
 import Waitlist from './components/Waitlist';
 

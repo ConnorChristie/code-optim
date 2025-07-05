@@ -1,4 +1,4 @@
-import { DocsUrl, BlogUrl } from '../shared/common';
+import { DocsUrl, BlogUrl } from '../../../shared/common';
 import { 
   FaChartLine, 
   FaGithub, 

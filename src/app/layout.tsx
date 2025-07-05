@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import AppNavBar, { NavigationItem } from "./client/components/NavBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -8,6 +9,9 @@ export const metadata: Metadata = {
   title: "Code Optima - AI-Powered Code Performance Optimization",
   description: "Code Optima is your AI co-pilot that hunts down performance slowpokes, fixes them in a flash, and rockets your app to warp speed—while you focus on what you love.",
 };
+
+const navigationItems: NavigationItem[] = [
+];
 
 function App({ children }: { children: React.ReactNode }) {
   return (
@@ -31,6 +35,7 @@ function App({ children }: { children: React.ReactNode }) {
 
       {/* Content */}
       <div className='relative flex min-h-screen flex-col'>
+        <AppNavBar navigationItems={navigationItems} />
         {children}
       </div>
     </div>

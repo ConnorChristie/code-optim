@@ -1,5 +1,5 @@
 import { FaGithub, FaXTwitter } from 'react-icons/fa6';
-import Logo from '../../client/components/Logo';
+import Logo from '../../Logo';
 
 interface NavigationItem {
   name: string;
