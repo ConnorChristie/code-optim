@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Table,
   TableBody,
@@ -233,6 +233,50 @@ function getStatusColor(status: Investigation['status']): string {
 // NOTE: We keep the exported name the same so existing imports continue to work.
 export function HotspotsList() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set())
+  const [investigations, setInvestigations] = useState<Investigation[]>([])
+
+  // Fetch real hotspot data from the backend API once on mount
+  useEffect(() => {
+    fetch('/api/hotspots?type=list&limit=50&page=1')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data.hotspots)) {
+          const transformed = data.hotspots.map((h: any) => ({
+            id: h.id,
+            title: h.title ?? h.description?.slice(0, 60) ?? 'Hotspot',
+            progress: 0,
+            status: h.status === 'in_progress'
+              ? 'In Progress'
+              : h.status === 'completed'
+              ? 'Completed'
+              : 'Pending',
+            expectation: `${(h.impact ?? 0).toFixed(1)}% potential improvement`,
+            nextStep: h.suggestedFix ?? '',
+            description: h.description ?? '',
+            owner: h.owner ?? 'System',
+            startedAt: h.createdAt ? new Date(h.createdAt).toISOString().slice(0, 10) : '',
+            metrics: {
+              latencyImprovement: h.impact ?? 0,
+              costReduction: h.costReduction ?? 0,
+              memoryOptimization: 0,
+              cpuUtilization: 0,
+            },
+            timeline: [],
+            relatedFiles: [
+              {
+                path: h.filePath ?? 'unknown',
+                issues: 1,
+                improvement: h.impact ?? 0,
+              },
+            ],
+            recommendations: h.optimizations?.map((o: any) => o.description) ?? [],
+            risks: [],
+          })) as Investigation[]
+          setInvestigations(transformed)
+        }
+      })
+      .catch((err) => console.error('Failed to fetch hotspots', err))
+  }, [])
 
   const toggleExpand = (id: string) => {
     setExpandedIds(prev => {
@@ -259,7 +303,7 @@ export function HotspotsList() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {mockInvestigations.map((inv) => (
+          {(investigations.length ? investigations : mockInvestigations).map((inv) => (
             <>
               <TableRow
                 key={inv.id}

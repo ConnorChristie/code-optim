@@ -166,4 +166,19 @@ async function getHotspotsList(searchParams: URLSearchParams) {
       pages: Math.ceil(total / query.limit)
     }
   })
-} 
+}
+
+// Duplicate simplified GET removed — consolidated logic handled by the primary GET definition above.
+// export async function GET() {
+//   try {
+//     const hotspots = await prisma.hotspot.findMany({
+//       orderBy: { createdAt: 'desc' },
+//       take: 100,
+//     })
+//
+//     return NextResponse.json({ hotspots })
+//   } catch (err: any) {
+//     console.error('Failed to load hotspots', err)
+//     return NextResponse.json({ error: err.message ?? 'Internal error' }, { status: 500 })
+//   }
+// } 
