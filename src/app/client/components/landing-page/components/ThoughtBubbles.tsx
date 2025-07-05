@@ -21,7 +21,7 @@ function DesktopThoughtBubbles() {
               <h3 className='text-lg font-semibold'>Every Millisecond Counts</h3>
             </div>
             <blockquote className='text-sm text-gray-300 italic mb-3'>
-              "Amazon found that just 100ms of extra latency cost them 1% in sales. Speed isn't just UX—it's revenue."
+              &quot;Amazon found that just 100ms of extra latency cost them 1% in sales. Speed isn&apos;t just UX—it&apos;s revenue.&quot;
             </blockquote>
             <div className='flex items-center justify-between'>
               <div className='text-xs text-gray-400 flex gap-3'>
@@ -56,7 +56,7 @@ function DesktopThoughtBubbles() {
               Sub-<span className='text-indigo-400'>0.3s</span> response feels instant to users.
               <br />
               <br />
-              <b>That's the difference between bounce and buy.</b>
+              <b>That&apos;s the difference between bounce and buy.</b>
             </p>
           </div>
         </div>
@@ -90,7 +90,7 @@ function MobileThoughtBubbles() {
               <h3 className='text-lg font-semibold'>Every Millisecond Counts</h3>
             </div>
             <blockquote className='text-sm text-gray-300 italic mb-3'>
-              "Amazon found that just 100ms of extra latency cost them 1% in sales. Speed isn't just UX—it's revenue."
+              &quot;Amazon found that just 100ms of extra latency cost them 1% in sales. Speed isn&apos;t just UX—it&apos;s revenue.&quot;
             </blockquote>
             <div className='flex items-center justify-between'>
               <div className='text-xs text-gray-400 flex gap-3'>
@@ -122,7 +122,7 @@ function MobileThoughtBubbles() {
               Sub-<span className='text-indigo-400'>0.3s</span> response feels instant to users.
               <br />
               <br />
-              <b>That's the difference between bounce and buy.</b>
+              <b>That&apos;s the difference between bounce and buy.</b>
             </p>
           </div>
         </div>

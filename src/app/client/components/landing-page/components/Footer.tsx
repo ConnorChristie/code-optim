@@ -1,17 +1,7 @@
 import { FaGithub, FaXTwitter } from 'react-icons/fa6';
 import Logo from '../../Logo';
 
-interface NavigationItem {
-  name: string;
-  href: string;
-};
-
-export default function Footer({ footerNavigation }: {
-  footerNavigation: {
-    app: NavigationItem[]
-    company: NavigationItem[]
-  }
-}) {
+export default function Footer() {
   return (
     <div className='mx-auto max-w-[90rem] px-6 lg:px-8'>
       <footer

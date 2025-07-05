@@ -1,4 +1,3 @@
-import { footerNavigation } from './contentSections';
 import Footer from './components/Footer';
 import Logo from '../Logo';
 import { ThoughtBubbles } from './components/ThoughtBubbles';
@@ -19,7 +18,7 @@ export default function LandingPage() {
                     </div>
                     <span className='inline-block px-4 py-1 mb-4 rounded-full text-sm font-semibold bg-indigo-600/20 text-indigo-300 backdrop-blur-lg'>Ready to Accelerate?</span>
                     <h1 className='text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-blue-400 to-cyan-400 sm:text-7xl'>
-                      Let's Make the Internet<br className='hidden sm:block' /> Blazing Fast!
+                      Let&apos;s Make the Internet<br className='hidden sm:block' /> Blazing Fast!
                     </h1>
                     <p className='mt-6 mx-auto lg:mx-0 max-w-2xl text-lg leading-8 text-gray-300'>
                       We believe your time is priceless! Code Optima is your AI co-pilot that hunts down performance slowpokes, fixes them in a flash, and rockets your app to warp speed—while you focus on what you love.
@@ -102,7 +101,7 @@ export default function LandingPage() {
             </div>
             <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <h3 className='text-xl font-semibold mb-2'>Continuous PR Guardrails</h3>
-              <p className='text-sm text-gray-400'>Want to make sure new code doesn't cause performance regressions? Code Optima analyzes each pull request to ensure that doesn't happen.</p>
+              <p className='text-sm text-gray-400'>Want to make sure new code doesn&apos;t cause performance regressions? Code Optima analyzes each pull request to ensure that doesn&apos;t happen.</p>
             </div>
             <div className='p-6 rounded-2xl bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500 transition-colors duration-300'>
               <h3 className='text-xl font-semibold mb-2'>Test Generation & Validation</h3>
@@ -150,7 +149,7 @@ export default function LandingPage() {
               Fueling Our Mission
             </h2>
             <p className='mt-4 text-lg leading-8 text-gray-300'>
-              Discover the stories and insights that inspired Code Optima's mission to revolutionize code optimization.
+              Discover the stories and insights that inspired Code Optima&apos;s mission to revolutionize code optimization.
             </p>
           </div>
           <div className='mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2 px-4 sm:px-6 lg:px-8'>
@@ -163,7 +162,7 @@ export default function LandingPage() {
                 <a href="https://nitropack.io/blog/post/how-page-speed-affects-conversion" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "Joint research with Google revealed that just 0.1s faster load times increased conversions by 10% in travel, 8.4% in e-commerce, and 3.6% in luxury sectors."
+                &quot;Joint research with Google revealed that just 0.1s faster load times increased conversions by 10% in travel, 8.4% in e-commerce, and 3.6% in luxury sectors.&quot;
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
                 <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Web Vitals</span>
@@ -180,7 +179,7 @@ export default function LandingPage() {
                 <a href="https://performance.shopify.com/blogs/blog/why-web-performance-still-matters" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "Sub-0.3s response feels instant to users. Yelp saw a 15% conversion lift after making their First Contentful Paint 45% faster. Speed isn't just UX—it's equity."
+                &quot;Sub-0.3s response feels instant to users. Yelp saw a 15% conversion lift after making their First Contentful Paint 45% faster. Speed isn&apos;t just UX—it&apos;s equity.&quot;
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
                 <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>Psychology</span>
@@ -197,7 +196,7 @@ export default function LandingPage() {
                 <a href="https://nitropack.io/blog/post/web-performance-matters-case-studies" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "Amazon found 100ms slower = 1% less sales. Walmart saw 100ms faster = 1% more revenue. Firefox gained 15% more downloads after cutting 2s load time."
+                &quot;Amazon found 100ms slower = 1% less sales. Walmart saw 100ms faster = 1% more revenue. Firefox gained 15% more downloads after cutting 2s load time.&quot;
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
                 <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>ROI</span>
@@ -226,7 +225,7 @@ export default function LandingPage() {
                 <a href="https://www.cloudflare.com/learning/performance/more/website-performance-conversion-rates/" target="_blank" rel="noopener noreferrer" className='text-indigo-400 hover:text-indigo-300'>Read More →</a>
               </div>
               <blockquote className='text-gray-300 italic mb-4'>
-                "Mobify's research revealed every 100ms faster checkout flow translated to 1.11% higher conversion rate. Speed is directly tied to revenue."
+                &quot;Mobify&apos;s research revealed every 100ms faster checkout flow translated to 1.11% higher conversion rate. Speed is directly tied to revenue.&quot;
               </blockquote>
               <div className='mt-6 flex flex-wrap gap-2'>
                 <span className='px-3 py-1 rounded-full text-xs font-medium bg-indigo-900/50 text-indigo-300'>E-commerce</span>
@@ -248,7 +247,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-        <Footer footerNavigation={footerNavigation} />
+        <Footer />
       </div>
     </div>
   );
