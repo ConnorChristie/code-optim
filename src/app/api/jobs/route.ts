@@ -101,8 +101,6 @@ class JobsAPI {
   }
 }
 
-const jobsAPI = new JobsAPI();
-
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -125,14 +123,12 @@ export async function GET(request: NextRequest) {
     // Get pagination parameters
     const limit = parseInt(searchParams.get('limit') || '100');
     const page = parseInt(searchParams.get('page') || '1');
-    const offset = (page - 1) * limit;
     const status = searchParams.get('status');
 
-    // Use POST method with filter for listing flow runs
     const flowRuns = await prefectAPI.listFlowRuns(
       status ? statusMap[status] : undefined,
       limit,
-      offset
+      page
     );
 
     // Transform flow runs into jobs format

@@ -61,28 +61,33 @@ export class PrefectAPI {
   async listFlowRuns(
     state?: string,
     limit: number = 100,
-    offset: number = 0
+    page: number = 1
   ): Promise<any[]> {
     interface FlowRunsResponse {
-      flow_runs: any[];
+      results: any[];
     }
 
-    const response = await this._request<FlowRunsResponse>('/flow_runs/filter', {
-      method: 'POST',
-      body: JSON.stringify({
-        sort: 'CREATED_DESC',
-        limit,
-        offset,
-        flow_runs: state ? {
-          state: {
-            type: {
-              any_: [state]
+    try {
+      const deploymentId = await this.getDeploymentId();
+      const response = await this._request<FlowRunsResponse>('/flow_runs/paginate', {
+        method: 'POST',
+        body: JSON.stringify({
+          limit,
+          page,
+          deployments: {
+            id: {
+              any_: [deploymentId]
             }
-          }
-        } : undefined
-      })
-    });
-    return response.flow_runs;
+          },
+          sort: 'START_TIME_DESC'
+        })
+      });
+
+      return response?.results || [];
+    } catch (error) {
+      console.error('Error fetching flow runs:', error);
+      return [];
+    }
   }
 }
 
