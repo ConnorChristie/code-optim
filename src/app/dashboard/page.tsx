@@ -32,7 +32,7 @@ export default function DashboardPage() {
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList className="bg-gray-900/50 backdrop-blur-lg border border-gray-800">
           <TabsTrigger value="overview" className="text-gray-300 hover:text-gray-200 data-[state=active]:bg-indigo-600/20 data-[state=active]:text-indigo-300">Overview</TabsTrigger>
-          <TabsTrigger value="hotspots" className="text-gray-300 hover:text-gray-200 data-[state=active]:bg-indigo-600/20 data-[state=active]:text-indigo-300">Hotspots</TabsTrigger>
+          <TabsTrigger value="hotspots" className="text-gray-300 hover:text-gray-200 data-[state=active]:bg-indigo-600/20 data-[state=active]:text-indigo-300">Investigations</TabsTrigger>
           <TabsTrigger value="optimizations" className="text-gray-300 hover:text-gray-200 data-[state=active]:bg-indigo-600/20 data-[state=active]:text-indigo-300">Optimizations</TabsTrigger>
           <TabsTrigger value="impact" className="text-gray-300 hover:text-gray-200 data-[state=active]:bg-indigo-600/20 data-[state=active]:text-indigo-300">Impact & Savings</TabsTrigger>
         </TabsList>
