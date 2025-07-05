@@ -1,4 +1,6 @@
 export { PerformanceChart } from './PerformanceChart'
 export { HotspotsList } from './HotspotsList'
 export { OptimizationMetrics } from './OptimizationMetrics'
-export { OptimizationSuggestions } from './OptimizationSuggestions' 
+export { OptimizationSuggestions } from './OptimizationSuggestions'
+export { PerformanceBreakdownChart } from './PerformanceBreakdownChart'
+export { CostCarbonChart } from './CostCarbonChart' 

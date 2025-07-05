@@ -25,6 +25,7 @@ ChartJS.register(
 
 const options = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top' as const,
@@ -63,8 +64,8 @@ const data: ChartData<'line'> = {
 
 export function PerformanceChart() {
   return (
-    <div className="w-full h-[300px]">
-      <Line options={options} data={data} />
+    <div className="w-full h-[300px] flex px-2">
+      <Line options={options} data={data} className="w-full" />
     </div>
   )
 } 
