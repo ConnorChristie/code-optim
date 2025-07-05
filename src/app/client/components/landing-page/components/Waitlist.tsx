@@ -15,7 +15,7 @@ const Waitlist = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      await addToWaitlist({ email, githubUrl });
+      await addToWaitlist({ email, githubUrl: githubUrl || undefined });
       router.push('/waitlist-thank-you');
     } catch (err: any) {
       console.error(err);
@@ -62,7 +62,7 @@ const Waitlist = () => {
           </div>
         </div>
         <button
-          className={`rounded-xl bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 text-white px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-300 transform hover:scale-102 hover:shadow-lg hover:shadow-indigo-500/30 active:scale-98 ${
+          className={`rounded-xl bg-gradient-to-r from-indigo-500 via-blue-500 to-cyan-500 text-white px-5 py-2.5 text-sm font-semibold shadow-sm transition-all duration-300 transform hover:scale-102 hover:shadow-lg hover:shadow-indigo-500/30 active:scale-98 cursor-pointer ${
             isSubmitting ? 'animate-pulse cursor-not-allowed opacity-75' : 'hover:opacity-90'
           }`}
           type='submit'
