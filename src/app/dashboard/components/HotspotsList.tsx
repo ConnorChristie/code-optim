@@ -55,9 +55,9 @@ const mockHotspots: Hotspot[] = [
 ]
 
 function getSeverityColor(severity: number): string {
-  if (severity >= 0.7) return 'bg-red-500'
-  if (severity >= 0.4) return 'bg-yellow-500'
-  return 'bg-green-500'
+  if (severity >= 0.7) return 'bg-red-500/80 text-white'
+  if (severity >= 0.4) return 'bg-yellow-500/80 text-white'
+  return 'bg-green-500/80 text-white'
 }
 
 export function HotspotsList() {
@@ -65,19 +65,19 @@ export function HotspotsList() {
     <div className="space-y-4">
       <Table>
         <TableHeader>
-          <TableRow>
-            <TableHead>File</TableHead>
-            <TableHead>Lines</TableHead>
-            <TableHead>Severity</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead>Improvement</TableHead>
+          <TableRow className="border-gray-800 hover:bg-gray-900/50">
+            <TableHead className="text-gray-300">File</TableHead>
+            <TableHead className="text-gray-300">Lines</TableHead>
+            <TableHead className="text-gray-300">Severity</TableHead>
+            <TableHead className="text-gray-300">Description</TableHead>
+            <TableHead className="text-gray-300">Improvement</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {mockHotspots.map((hotspot) => (
-            <TableRow key={hotspot.id}>
-              <TableCell className="font-medium">{hotspot.filePath}</TableCell>
-              <TableCell>{`${hotspot.lineStart}-${hotspot.lineEnd}`}</TableCell>
+            <TableRow key={hotspot.id} className="border-gray-800 hover:bg-gray-900/50">
+              <TableCell className="font-medium text-indigo-400">{hotspot.filePath}</TableCell>
+              <TableCell className="text-gray-300">{`${hotspot.lineStart}-${hotspot.lineEnd}`}</TableCell>
               <TableCell>
                 <Badge 
                   className={`${getSeverityColor(hotspot.severity)}`}
@@ -87,11 +87,11 @@ export function HotspotsList() {
               </TableCell>
               <TableCell>
                 <div>
-                  <p className="font-medium">{hotspot.description}</p>
-                  <p className="text-sm text-gray-500">{hotspot.suggestedFix}</p>
+                  <p className="font-medium text-gray-200">{hotspot.description}</p>
+                  <p className="text-sm text-gray-400">{hotspot.suggestedFix}</p>
                 </div>
               </TableCell>
-              <TableCell className="text-green-600">
+              <TableCell className="text-green-400 font-semibold">
                 +{hotspot.estimatedImprovement}%
               </TableCell>
             </TableRow>

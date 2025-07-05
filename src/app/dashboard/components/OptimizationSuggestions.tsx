@@ -60,40 +60,44 @@ const mockSuggestions: OptimizationSuggestion[] = [
 
 export function OptimizationSuggestions() {
   return (
-    <Accordion type="single" collapsible className="w-full">
+    <Accordion type="single" collapsible className="w-full space-y-2 py-2">
       {mockSuggestions.map((suggestion) => (
-        <AccordionItem key={suggestion.id} value={suggestion.id}>
-          <AccordionTrigger className="flex items-center justify-between">
+        <AccordionItem 
+          key={suggestion.id} 
+          value={suggestion.id}
+          className="bg-gray-900/50 backdrop-blur-lg border border-gray-800 hover:border-indigo-500/50 rounded-lg transition-all duration-300"
+        >
+          <AccordionTrigger className="flex items-center justify-between px-4 py-3 text-gray-200 hover:text-gray-100 hover:bg-gray-900/30 rounded-t-lg">
             <div className="flex items-center space-x-4">
-              <span className="font-medium">{suggestion.hotspotId}</span>
-              <Badge variant="outline" className="ml-2">
+              <span className="font-medium text-indigo-400">{suggestion.hotspotId}</span>
+              <Badge variant="outline" className="ml-2 border-green-500/50 text-green-400">
                 +{suggestion.estimatedImprovement}% improvement
               </Badge>
             </div>
           </AccordionTrigger>
           <AccordionContent>
-            <div className="space-y-4 p-4">
+            <div className="space-y-4 p-4 bg-gray-900/30">
               <div>
-                <h4 className="font-medium mb-2">Refactoring Steps</h4>
+                <h4 className="font-medium mb-2 text-gray-200">Refactoring Steps</h4>
                 <ul className="list-disc pl-5 space-y-1">
                   {suggestion.refactoringSteps.map((step, index) => (
-                    <li key={index} className="text-sm">{step}</li>
+                    <li key={index} className="text-sm text-gray-300">{step}</li>
                   ))}
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium mb-2">Risks</h4>
+                <h4 className="font-medium mb-2 text-gray-200">Risks</h4>
                 <ul className="list-disc pl-5 space-y-1">
                   {suggestion.risks.map((risk, index) => (
-                    <li key={index} className="text-sm text-red-600">{risk}</li>
+                    <li key={index} className="text-sm text-red-400">{risk}</li>
                   ))}
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium mb-2">Testing Recommendations</h4>
+                <h4 className="font-medium mb-2 text-gray-200">Testing Recommendations</h4>
                 <ul className="list-disc pl-5 space-y-1">
                   {suggestion.testingRecommendations.map((rec, index) => (
-                    <li key={index} className="text-sm">{rec}</li>
+                    <li key={index} className="text-sm text-gray-300">{rec}</li>
                   ))}
                 </ul>
               </div>
