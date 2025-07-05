@@ -128,9 +128,97 @@ exports.Prisma.WaitlistEntryScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.HotspotScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  filePath: 'filePath',
+  lineNumber: 'lineNumber',
+  category: 'category',
+  priority: 'priority',
+  status: 'status',
+  severity: 'severity',
+  impact: 'impact',
+  estimatedSavings: 'estimatedSavings',
+  repoUrl: 'repoUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  resolvedAt: 'resolvedAt'
+};
+
+exports.Prisma.OptimizationScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  category: 'category',
+  type: 'type',
+  status: 'status',
+  beforeCode: 'beforeCode',
+  afterCode: 'afterCode',
+  filePath: 'filePath',
+  lineNumber: 'lineNumber',
+  performanceGain: 'performanceGain',
+  costSavings: 'costSavings',
+  carbonReduction: 'carbonReduction',
+  executionTime: 'executionTime',
+  repoUrl: 'repoUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  appliedAt: 'appliedAt',
+  hotspotId: 'hotspotId'
+};
+
+exports.Prisma.OptimizationRunScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  repoUrl: 'repoUrl',
+  status: 'status',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  failedAt: 'failedAt',
+  errorMessage: 'errorMessage',
+  hotspotsFound: 'hotspotsFound',
+  optimizationsApplied: 'optimizationsApplied',
+  totalImprovements: 'totalImprovements'
+};
+
+exports.Prisma.MetricScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  value: 'value',
+  unit: 'unit',
+  category: 'category',
+  timestamp: 'timestamp',
+  repoUrl: 'repoUrl',
+  metadata: 'metadata'
+};
+
+exports.Prisma.ImpactScalarFieldEnum = {
+  id: 'id',
+  period: 'period',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  costSavings: 'costSavings',
+  carbonReduction: 'carbonReduction',
+  performanceGain: 'performanceGain',
+  requestCostReduction: 'requestCostReduction',
+  responseTimeReduction: 'responseTimeReduction',
+  energySavings: 'energySavings',
+  treesEquivalent: 'treesEquivalent',
+  roi: 'roi',
+  uptime: 'uptime',
+  tokenSpend: 'tokenSpend',
+  activeJobs: 'activeJobs'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -143,9 +231,20 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
-  WaitlistEntry: 'WaitlistEntry'
+  WaitlistEntry: 'WaitlistEntry',
+  Hotspot: 'Hotspot',
+  Optimization: 'Optimization',
+  OptimizationRun: 'OptimizationRun',
+  Metric: 'Metric',
+  Impact: 'Impact'
 };
 
 /**

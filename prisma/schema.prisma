@@ -19,4 +19,119 @@ model WaitlistEntry {
   updatedAt DateTime @updatedAt
 
   @@index([email])
+}
+
+model Hotspot {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  filePath    String
+  lineNumber  Int?
+  category    String   // "Database", "API", "Algorithm", "Memory", "IO"
+  priority    String   // "Low", "Medium", "High", "Critical"
+  status      String   // "active", "in_progress", "completed", "cancelled"
+  severity    Float    // 0.0 to 1.0
+  impact      Float    // Performance impact score
+  estimatedSavings Float?
+  repoUrl     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  resolvedAt  DateTime?
+  
+  // Relations
+  optimizations Optimization[]
+  
+  @@index([status])
+  @@index([priority])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model Optimization {
+  id               String   @id @default(cuid())
+  title            String
+  description      String
+  category         String   // "Database", "API", "Algorithm", "Memory", "IO"
+  type             String   // "refactor", "config", "dependency", "architecture"
+  status           String   // "pending", "applied", "failed", "rolled_back"
+  beforeCode       String?
+  afterCode        String?
+  filePath         String
+  lineNumber       Int?
+  performanceGain  Float?   // Percentage improvement
+  costSavings      Float?   // Dollar amount saved
+  carbonReduction  Float?   // CO2 reduction in kg
+  executionTime    Int?     // Time to apply in seconds
+  repoUrl          String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  appliedAt        DateTime?
+  
+  // Relations
+  hotspotId        String?
+  hotspot          Hotspot? @relation(fields: [hotspotId], references: [id])
+  optimizationRuns OptimizationRun[]
+  
+  @@index([status])
+  @@index([category])
+  @@index([createdAt])
+  @@index([appliedAt])
+}
+
+model OptimizationRun {
+  id              String   @id @default(cuid())
+  jobId           String   @unique
+  repoUrl         String
+  status          String   // "pending", "running", "completed", "failed"
+  startedAt       DateTime @default(now())
+  completedAt     DateTime?
+  failedAt        DateTime?
+  errorMessage    String?
+  hotspotsFound   Int      @default(0)
+  optimizationsApplied Int @default(0)
+  totalImprovements Float? // Overall performance improvement
+  
+  // Relations
+  optimizations   Optimization[]
+  
+  @@index([status])
+  @@index([startedAt])
+  @@index([repoUrl])
+}
+
+model Metric {
+  id          String   @id @default(cuid())
+  name        String   // "response_time", "cpu_usage", "memory_usage", "cost_per_request"
+  value       Float
+  unit        String   // "ms", "seconds", "percent", "bytes", "dollars"
+  category    String   // "performance", "cost", "environment"
+  timestamp   DateTime @default(now())
+  repoUrl     String?
+  metadata    Json?    // Additional context/tags
+  
+  @@index([name])
+  @@index([timestamp])
+  @@index([category])
+}
+
+model Impact {
+  id                String   @id @default(cuid())
+  period            String   // "daily", "weekly", "monthly"
+  periodStart       DateTime
+  periodEnd         DateTime
+  costSavings       Float    // Dollar amount saved
+  carbonReduction   Float    // CO2 reduction in kg
+  performanceGain   Float    // Average performance improvement %
+  requestCostReduction Float // Cost reduction per request
+  responseTimeReduction Float // Response time improvement %
+  energySavings     Float    // Energy saved in kWh
+  treesEquivalent   Float    // Trees equivalent for carbon savings
+  roi               Float    // Return on investment %
+  uptime            Float    // System uptime %
+  tokenSpend        Float    // LLM token cost
+  activeJobs        Int      // Number of active optimization jobs
+  
+  @@index([period])
+  @@index([periodStart])
+  @@unique([period, periodStart])
 } 
