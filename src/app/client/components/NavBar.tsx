@@ -5,8 +5,10 @@ import { useState, Dispatch, SetStateAction } from 'react';
 import { Dialog } from '@headlessui/react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { HiBars3 } from 'react-icons/hi2';
-import Logo from './Logo';
 import { cn } from '../../cn';
+import Logo from './Logo';
+import GitHubLoginButton from './GitHubLoginButton';
+import { useSession } from 'next-auth/react';
 
 export interface NavigationItem {
   name: string;
@@ -15,6 +17,7 @@ export interface NavigationItem {
 
 export default function AppNavBar({ navigationItems }: { navigationItems: NavigationItem[] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { data: session, update } = useSession();
 
   return (
     <header
@@ -43,14 +46,12 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
         </div>
         <div className='hidden lg:flex lg:gap-x-12'>{renderNavigationItems(navigationItems)}</div>
         <div className='hidden lg:flex lg:flex-1 gap-3 justify-end items-center'>
-          <Link 
-            href="/login" 
-            className='text-sm font-semibold leading-6 ml-3 text-gray-300 hover:text-white transition-colors duration-300'
-          >
-            <div className='flex items-center'>
-              Log in
+          {session && (
+            <div className='flex items-center gap-2'>
+              <span className='text-gray-300'>Welcome, {session.user?.name}</span>
             </div>
-          </Link>
+          )}
+          <GitHubLoginButton />
         </div>
       </nav>
       <Dialog as='div' className='lg:hidden' open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -74,11 +75,7 @@ export default function AppNavBar({ navigationItems }: { navigationItems: Naviga
             <div className='-my-6 divide-y divide-gray-800'>
               <div className='space-y-2 py-6'>{renderNavigationItems(navigationItems, setMobileMenuOpen)}</div>
               <div className='py-6'>
-                <Link href="/login">
-                  <div className='flex justify-end items-center text-gray-300 hover:text-white transition-colors duration-300'>
-                    Log in
-                  </div>
-                </Link>
+                <GitHubLoginButton />
               </div>
             </div>
           </div>
