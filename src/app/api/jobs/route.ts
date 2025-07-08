@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prefectAPI, statusMap } from '@/lib/prefect';
+import { prompts } from '@/schema';
+import { drizzle } from 'drizzle-orm/neon-http';
+import { neon } from '@neondatabase/serverless';
+import { eq, desc } from 'drizzle-orm';
 
 // Schema for job submission
 const CreateJobSchema = z.object({
@@ -159,11 +163,29 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const validatedData = CreateJobSchema.parse(body);
 
+    // Fetch latest active analyzer prompt
+    let systemPrompt: string | undefined = undefined;
+    try {
+      const sql = neon(process.env.DATABASE_URL!);
+      const db = drizzle(sql);
+      const [promptRow] = await db
+        .select()
+        .from(prompts)
+        .where(eq(prompts.name, 'analyzer'))
+        .orderBy(desc(prompts.version))
+        .limit(1);
+
+      systemPrompt = promptRow?.content;
+    } catch (err) {
+      console.error('Failed to fetch analyzer prompt:', err);
+    }
+
     const flowRunId = await prefectAPI.createFlowRun(
       validatedData.repo_path,
       {
         ...validatedData.config,
-        priority: validatedData.priority
+        priority: validatedData.priority,
+        system_prompt: systemPrompt,
       }
     );
 

@@ -234,3 +234,24 @@ export const impacts = pgTable(
     ),
   ]
 )
+
+// -----------------------------
+// Prompts table – stores versioned system prompts
+// -----------------------------
+
+export const prompts = pgTable(
+  "prompt",
+  {
+    id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+    name: text("name").notNull(),
+    version: integer("version").notNull(),
+    content: text("content").notNull(),
+    isActive: boolean("isActive").default(true).notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+    updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
+  },
+  (table) => [
+    uniqueIndex("prompt_name_version_unique").on(table.name, table.version),
+    index("prompt_name_idx").on(table.name),
+  ]
+)

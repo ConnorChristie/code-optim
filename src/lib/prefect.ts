@@ -1,7 +1,6 @@
 export class PrefectAPI {
   private baseUrl: string;
   private apiKey: string | undefined;
-  private deploymentName = 'Optimization Workflow/optimization_flow';
 
   constructor() {
     this.baseUrl = process.env.PREFECT_API_URL || 'http://localhost:4200/api';
@@ -30,13 +29,13 @@ export class PrefectAPI {
     return response.json();
   }
 
-  private async getDeploymentId(): Promise<string> {
-    const response = await this._request<{ id: string }>(`/deployments/name/${encodeURIComponent(this.deploymentName)}`);
+  private async getDeploymentId(deploymentName: string): Promise<string> {
+    const response = await this._request<{ id: string }>(`/deployments/name/${encodeURIComponent(deploymentName)}`);
     return response.id;
   }
 
-  async createFlowRun(repoPath: string, config: Record<string, any>): Promise<string> {
-    const deploymentId = await this.getDeploymentId();
+  async createFlowRun(deploymentName: string, repoPath: string, config: Record<string, any>): Promise<string> {
+    const deploymentId = await this.getDeploymentId(deploymentName);
     const response = await this._request<{ id: string }>(`/deployments/${deploymentId}/create_flow_run`, {
       method: 'POST',
       body: JSON.stringify({
@@ -68,7 +67,7 @@ export class PrefectAPI {
     }
 
     try {
-      const deploymentId = await this.getDeploymentId();
+      const deploymentId = await this.getDeploymentId('default');
       const response = await this._request<FlowRunsResponse>('/flow_runs/paginate', {
         method: 'POST',
         body: JSON.stringify({
