@@ -75,7 +75,7 @@ async function getHotspotSummary() {
   })
 
   const avgResolution = resolvedHotspots.length > 0
-    ? resolvedHotspots.reduce((sum: number, hotspot) => {
+    ? resolvedHotspots.reduce((sum: number, hotspot: { createdAt: Date; resolvedAt: Date | null }) => {
         const resolutionTime = hotspot.resolvedAt 
           ? (hotspot.resolvedAt.getTime() - hotspot.createdAt.getTime()) / (1000 * 60 * 60 * 24)
           : 0
@@ -110,7 +110,7 @@ async function getHotspotCategories() {
     IO: '#8b5cf6'
   }
 
-  const categoriesData = categories.map(cat => ({
+  const categoriesData = categories.map((cat: { category: string; _count: number }) => ({
     name: cat.category,
     value: cat._count,
     color: colorMap[cat.category] || '#6b7280'

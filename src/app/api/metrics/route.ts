@@ -143,7 +143,7 @@ async function getPerformanceChart(startDate: Date) {
   })
 
   // Group by date and calculate average
-  const dailyMetrics = metrics.reduce((acc: Record<string, { sum: number; count: number }>, metric) => {
+  const dailyMetrics = metrics.reduce((acc: Record<string, { sum: number; count: number }>, metric: { value: number; timestamp: Date }) => {
     const date = metric.timestamp.toISOString().split('T')[0]
     if (!acc[date]) {
       acc[date] = { sum: 0, count: 0 }

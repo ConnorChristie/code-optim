@@ -111,12 +111,12 @@ async function getCostCarbonChart(searchParams: URLSearchParams) {
   })
 
   // Transform data for the chart
-  const costData = impactData.map(item => ({
+  const costData = impactData.map((item: { periodStart: Date; costSavings: number }) => ({
     date: item.periodStart.toISOString().split('T')[0],
     value: item.costSavings
   }))
 
-  const carbonData = impactData.map(item => ({
+  const carbonData = impactData.map((item: { periodStart: Date; carbonReduction: number }) => ({
     date: item.periodStart.toISOString().split('T')[0],
     value: item.carbonReduction
   }))
