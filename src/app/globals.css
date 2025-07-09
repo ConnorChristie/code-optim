@@ -42,6 +42,10 @@
 
 body {
   background: rgb(var(--background-rgb));
+  /* Enable hardware acceleration for better performance */
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @theme inline {
@@ -123,4 +127,65 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Optimized animations with better performance */
+@keyframes speed-lines {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes speed-lines-slow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 200%; }
+}
+
+.animate-speed-lines {
+  animation: speed-lines 8s linear infinite;
+  will-change: background-position;
+}
+
+.animate-speed-lines-slow {
+  animation: speed-lines-slow 12s linear infinite;
+  will-change: background-position;
+}
+
+/* Performance optimizations for cards */
+.card-performance {
+  will-change: border-color, background-color;
+  contain: layout style;
+}
+
+/* Optimized backdrop blur for better performance */
+.backdrop-blur-optimized {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  will-change: backdrop-filter;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .animate-speed-lines,
+  .animate-speed-lines-slow {
+    animation: none;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Optimize text rendering */
+.text-optimized {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU-accelerated elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
 }
